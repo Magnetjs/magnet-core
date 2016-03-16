@@ -2,8 +2,7 @@
 
 ### Module boilerplate
 ```
-//import Base from 'magnet-core/base';
-import Base from '../core/base';
+import Base from 'magnet-core/dist/base';
 
 export default class Module extends Base {
   /**
@@ -82,3 +81,6 @@ magnet([
   Kue
 ]);
 ```
+
+### Roadmap
+- Change base path from `import Base from 'magnet-core/dist/base';` to `import Base from 'magnet-core/base';`
