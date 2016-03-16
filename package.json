@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "gulp watch",
-    "--prepublish": "gulp",
     "build": "babel src --presets babel-preset-es2015,babel-preset-stage-0 --out-dir dist",
     "test": "babel-node --presets es2015,stage-0 tests/index.js | tap-spec",
     "watch-test": "nodemon --exec babel-node --presets es2015,stage-0 tests/index.js | tap-spec"
