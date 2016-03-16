@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Magnetjs/magnet-core.svg?branch=master)](https://travis-ci.org/Magnetjs/magnet-core)
+
 ### Module boilerplate
 ```
 //import Base from 'magnet-core/base';
