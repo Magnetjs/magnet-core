@@ -28,7 +28,6 @@
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-import": "^1.1.0",
-    "eslint-plugin-react": "^4.2.3",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-sourcemaps": "^1.6.0",
@@ -38,16 +37,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/kievechua/magnet_modules.git"
+    "url": "git+ssh://git@github.com/Magnetjs/magnet-core.git"
   },
   "keywords": [
     "magnet",
     "core"
   ],
   "bugs": {
-    "url": "https://github.com/kievechua/magnet_modules/issues"
+    "url": "https://github.com/Magnetjs/magnet-core/issues"
   },
-  "homepage": "https://github.com/kievechua/magnet_modules#readme",
+  "homepage": "https://github.com/Magnetjs/magnet-core#readme",
   "directories": {
     "test": "tests"
   }

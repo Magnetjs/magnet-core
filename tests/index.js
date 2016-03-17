@@ -3,7 +3,6 @@ import Magnet from '../src/';
 import Base from '../src/base';
 
 (async function () {
-try {
   class TestBase extends Base {}
   let classes = {};
   [true, false, true, true].forEach(function (truty, index) {
@@ -85,7 +84,4 @@ try {
     t.true(sequenceApp.testSetupTime1 >= sequenceApp.testSetupTime0);
     t.end();
   });
-} catch (err) {
-  console.error(err);
-}
 })();
