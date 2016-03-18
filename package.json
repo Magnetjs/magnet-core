@@ -1,13 +1,16 @@
 {
   "name": "magnet-core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Readme",
   "main": "dist/index.js",
   "scripts": {
-    "start": "gulp watch",
-    "build": "babel src --presets babel-preset-es2015,babel-preset-stage-0 --out-dir dist",
-    "test": "babel-node --presets es2015,stage-0 tests/index.js | tap-spec",
-    "watch-test": "nodemon --exec babel-node --presets es2015,stage-0 tests/index.js | tap-spec"
+    "prepublish": "npm run build",
+    "build": "babel src --out-dir dist",
+    "start": "babel src --out-dir dist",
+    "test": "babel-node tests/index.js | tap-spec",
+    "watch": "nodemon --ignore dist --exec \"babel src\" --out-dir dist",
+    "watch-test": "nodemon --delay 0.5 --ignore src --exec babel-node tests/index.js | tap-spec",
+    "watch-all": "concurrently \"npm run watch\" \"npm run watch-test\""
   },
   "author": "Kieve Chua <kievechua@gmail.com>",
   "license": "MIT",
@@ -16,38 +19,90 @@
     "CHANGELOG.md",
     "dist"
   ],
-  "dependencies": {},
-  "devDependencies": {
-    "babel-cli": "^6.6.5",
-    "babel-core": "^6.7.2",
-    "babel-plugin-transform-async-to-generator": "^6.7.0",
-    "babel-plugin-transform-runtime": "^6.6.0",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-tape-runner": "^2.0.1",
-    "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.1.0",
-    "eslint-plugin-import": "^1.1.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "nodemon": "^1.9.1",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.5.1"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Magnetjs/magnet-core.git"
   },
-  "keywords": [
-    "magnet",
-    "core"
-  ],
   "bugs": {
     "url": "https://github.com/Magnetjs/magnet-core/issues"
   },
   "homepage": "https://github.com/Magnetjs/magnet-core#readme",
+  "keywords": [
+    "magnet",
+    "core"
+  ],
   "directories": {
     "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.7.2",
+    "babel-plugin-syntax-async-functions": "^6.5.0",
+    "babel-plugin-transform-async-to-generator": "^6.7.0",
+    "babel-plugin-transform-runtime": "^6.6.0",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "concurrently": "^2.0.0",
+    "eslint": "^2.4.0",
+    "eslint-config-airbnb": "^6.1.0",
+    "eslint-plugin-import": "^1.1.0",
+    "nodemon": "^1.9.1",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.5.1"
+  },
+  "babel": {
+    "presets": ["es2015", "stage-0"],
+    "plugins": ["syntax-async-functions", "transform-async-to-generator"]
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-airbnb",
+    "env": {
+      "browser": true,
+      "node": true,
+      "mocha": true
+    },
+    "rules": {
+      "import/default": 0,
+      "import/no-duplicates": 0,
+      "import/named": 0,
+      "import/namespace": 0,
+      "import/no-unresolved": 0,
+      "import/no-named-as-default": 2,
+      "jsx-quotes": 2,
+      "block-scoped-var": 0,
+      "padded-blocks": 0,
+      "comma-dangle": 0,
+      "indent": [
+        2,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "no-console": 0,
+      "no-alert": 0
+    },
+    "plugins": [
+      "import"
+    ],
+    "settings": {
+      "import/parser": "babel-eslint",
+      "import/resolve": {
+        "moduleDirectory": [
+          "node_modules",
+          "src"
+        ]
+      }
+    },
+    "globals": {
+      "__DEVELOPMENT__": true,
+      "__CLIENT__": true,
+      "__SERVER__": true,
+      "__DISABLE_SSR__": true,
+      "__DEVTOOLS__": true,
+      "socket": true,
+      "webpackIsomorphicTools": true
+    }
   }
 }

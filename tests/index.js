@@ -1,6 +1,6 @@
 import test from 'tape';
-import Magnet from '../src/';
-import Base from '../src/base';
+import Magnet from '../dist/';
+import Base from '../dist/base';
 
 (async function () {
   class TestBase extends Base {}
@@ -19,10 +19,11 @@ import Base from '../src/base';
   });
 
   const [
-    emptyApp, singleModuleApp, overrideApp, asyncApp, sequenceApp
+    emptyApp, singleModuleApp, moduleWithParamsApp, overrideApp, asyncApp, sequenceApp
   ] = await Promise.all([
     Magnet(),
     Magnet([classes.class0]),
+    Magnet([{ module: classes.class0, options: {} }]),
     Magnet([classes.class0, class TestOverride extends Base {
       async setup() {
         this.app.test0 = false;
@@ -61,6 +62,11 @@ import Base from '../src/base';
 
   test('Module add namespace', function (t) {
     t.true(singleModuleApp.test0);
+    t.end();
+  });
+
+  test('Module inserted with params', function (t) {
+    t.true(moduleWithParamsApp.test0);
     t.end();
   });
 

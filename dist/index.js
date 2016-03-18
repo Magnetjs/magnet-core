@@ -36,28 +36,34 @@ exports.default = function () {
 
               case 8:
                 if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                  _context.next = 22;
+                  _context.next = 23;
                   break;
                 }
 
                 Module = _step.value;
-                task = new Module(app);
+                task = void 0;
+
+                if (Module.module) {
+                  task = new Module.module(app, Module.options);
+                } else {
+                  task = new Module(app);
+                }
 
                 if (!task.setup) {
-                  _context.next = 17;
+                  _context.next = 18;
                   break;
                 }
 
                 _context.t0 = setups;
-                _context.next = 15;
+                _context.next = 16;
                 return task.setup();
 
-              case 15:
+              case 16:
                 _context.t1 = _context.sent;
 
                 _context.t0.push.call(_context.t0, _context.t1);
 
-              case 17:
+              case 18:
 
                 if (task.start) {
                   starts.push(task.start.bind(task));
@@ -67,64 +73,64 @@ exports.default = function () {
                   teardowns.push(task.teardown.bind(task));
                 }
 
-              case 19:
+              case 20:
                 _iteratorNormalCompletion = true;
                 _context.next = 8;
                 break;
 
-              case 22:
-                _context.next = 28;
+              case 23:
+                _context.next = 29;
                 break;
 
-              case 24:
-                _context.prev = 24;
+              case 25:
+                _context.prev = 25;
                 _context.t2 = _context['catch'](6);
                 _didIteratorError = true;
                 _iteratorError = _context.t2;
 
-              case 28:
-                _context.prev = 28;
+              case 29:
                 _context.prev = 29;
+                _context.prev = 30;
 
                 if (!_iteratorNormalCompletion && _iterator.return) {
                   _iterator.return();
                 }
 
-              case 31:
-                _context.prev = 31;
+              case 32:
+                _context.prev = 32;
 
                 if (!_didIteratorError) {
-                  _context.next = 34;
+                  _context.next = 35;
                   break;
                 }
 
                 throw _iteratorError;
 
-              case 34:
-                return _context.finish(31);
-
               case 35:
-                return _context.finish(28);
+                return _context.finish(32);
 
               case 36:
-                _context.next = 38;
+                return _context.finish(29);
+
+              case 37:
+                _context.next = 39;
                 return setups;
 
-              case 38:
+              case 39:
                 if (!arr.length) {
-                  _context.next = 41;
+                  _context.next = 42;
                   break;
                 }
 
-                _context.next = 41;
+                _context.next = 42;
                 return performTasks(arr);
 
-              case 41:
+              case 42:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[6, 24, 28, 36], [29,, 31, 35]]);
+        }, _callee, this, [[6, 25, 29, 37], [30,, 32, 36]]);
       }));
 
       return function performTasks(_x3) {

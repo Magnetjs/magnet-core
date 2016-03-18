@@ -15,7 +15,12 @@ export default async function Magnet(modules = []) {
 
     let setups = [];
     for (let Module of Modules) {
-      let task = new Module(app);
+      let task;
+      if (Module.module) {
+        task = new Module.module(app, Module.options);
+      } else {
+        task = new Module(app);
+      }
 
       if (task.setup) {
         setups.push(await task.setup());
