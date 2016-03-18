@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/Magnetjs/magnet-core.svg?branch=master)](https://travis-ci.org/Magnetjs/magnet-core)
 
+### Philosophy
+- Standard is god, we define the structure.
+- Everything else is up to you.
+
 ### Module boilerplate
 ```
 import Base from 'magnet-core/dist/base';
