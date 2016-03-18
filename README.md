@@ -23,6 +23,20 @@ export default class Module extends Base {
   }
 }
 ```
+### Folders structure
+- client
+- docs
+- universal
+- local_modules
+- server
+  - config
+  - controllers
+  - emails
+  - graphql
+  - queues
+  - schedulers
+- static
+- tests
 
 ### App structure
 ```
