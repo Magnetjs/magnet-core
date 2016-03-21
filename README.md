@@ -4,6 +4,9 @@
 - Standard is god, we define the structure.
 - Everything else is up to you.
 
+### Status
+Under development, API might change for all Magnet modules.
+
 ### Module boilerplate
 ```
 import Base from 'magnet-core/dist/base';
