@@ -100,7 +100,7 @@
     "babel-preset-stage-2": "^6.5.0",
     "concurrently": "^2.0.0",
     "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.1.0",
+    "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-import": "^1.1.0",
     "nodemon": "^1.9.1",
     "tap-spec": "^4.1.1"
