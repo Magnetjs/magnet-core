@@ -105,3 +105,5 @@ magnet([
 
 ### Roadmap
 - Change base path from `import Base from 'magnet-core/dist/base';` to `import Base from 'magnet-core/base';`
+- Improve error handling and detection
+- Support teardown

@@ -1,4 +1,3 @@
-console.log('hihi');
 /**
  * We can change setup to be middleware based, but now let keep it simple with array only.
  */
