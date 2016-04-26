@@ -89,7 +89,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "ava": "^0.13.0",
+    "ava": "^0.14.0",
     "babel-cli": "^6.6.5",
     "babel-core": "^6.7.2",
     "babel-plugin-transform-async-to-generator": "^6.7.4",
@@ -98,7 +98,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "concurrently": "^2.0.0",
     "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.1.0",
+    "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-import": "^1.1.0",
     "nodemon": "^1.9.1",
     "tap-spec": "^4.1.1"
