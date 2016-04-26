@@ -6,6 +6,22 @@ export default async function Magnet(modules = []) {
   let starts = [];
   let teardowns = [];
 
+  function consoleInfo(app, message) {
+    if (app && app.log && app.log.info) {
+      app.log.info(message);
+    } else {
+      console.log(message);
+    }
+  }
+
+  function consoleError(app, message) {
+    if (app && app.log && app.log.error) {
+      app.log.error(message);
+    } else {
+      console.error(app, message);
+    }
+  }
+
   async function performTasks(arr) {
     let Modules = arr.shift();
 
@@ -42,6 +58,24 @@ export default async function Magnet(modules = []) {
     }
   }
 
+  async function errorHandler(err) {
+    try {
+      let closing = [];
+      for (let teardown of teardowns) {
+        closing.push(teardown());
+      }
+      await Promise.all(closing);
+    } catch (err) {
+      consoleError(app, err);
+    } finally {
+      consoleInfo(app, 'finally');
+      process.kill(process.pid, 'SIGUSR2');
+    }
+  }
+
+  process.once('uncaughtException', errorHandler);
+  process.once('SIGUSR2', errorHandler);
+
   try {
     if (modules.length) {
       await performTasks(modules);
@@ -50,13 +84,13 @@ export default async function Magnet(modules = []) {
         await start();
       }
 
-      console.log('Ready');
+      consoleInfo(app,'Ready');
     } else {
-      console.log('No modules provided.');
+      consoleInfo(app,'No modules provided.');
     }
 
     return app;
   } catch (err) {
-    console.error(err.stack);
+    consoleError(app, err.stack);
   }
 }

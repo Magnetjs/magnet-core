@@ -19,3 +19,4 @@ var Base = function Base() {
 };
 
 exports.default = Base;
+//# sourceMappingURL=base.js.map
