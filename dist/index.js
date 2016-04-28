@@ -208,7 +208,7 @@ exports.default = function () {
               case 28:
                 _context2.prev = 28;
 
-                consoleInfo(app, 'finally');
+                consoleInfo(app, 'Finally shutdown server');
                 process.kill(process.pid, 'SIGUSR2');
                 return _context2.finish(28);
 
@@ -256,97 +256,98 @@ exports.default = function () {
 
             process.once('uncaughtException', errorHandler);
             process.once('SIGUSR2', errorHandler);
+            process.once('SIGINT', errorHandler);
 
-            _context3.prev = 7;
+            _context3.prev = 8;
 
             if (!modules.length) {
-              _context3.next = 40;
+              _context3.next = 41;
               break;
             }
 
-            _context3.next = 11;
+            _context3.next = 12;
             return performTasks(modules);
 
-          case 11:
+          case 12:
             _iteratorNormalCompletion3 = true;
             _didIteratorError3 = false;
             _iteratorError3 = undefined;
-            _context3.prev = 14;
+            _context3.prev = 15;
             _iterator3 = starts.reverse()[Symbol.iterator]();
 
-          case 16:
+          case 17:
             if (_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done) {
-              _context3.next = 23;
+              _context3.next = 24;
               break;
             }
 
             start = _step3.value;
-            _context3.next = 20;
+            _context3.next = 21;
             return start();
 
-          case 20:
+          case 21:
             _iteratorNormalCompletion3 = true;
-            _context3.next = 16;
+            _context3.next = 17;
             break;
 
-          case 23:
-            _context3.next = 29;
+          case 24:
+            _context3.next = 30;
             break;
 
-          case 25:
-            _context3.prev = 25;
-            _context3.t0 = _context3['catch'](14);
+          case 26:
+            _context3.prev = 26;
+            _context3.t0 = _context3['catch'](15);
             _didIteratorError3 = true;
             _iteratorError3 = _context3.t0;
 
-          case 29:
-            _context3.prev = 29;
+          case 30:
             _context3.prev = 30;
+            _context3.prev = 31;
 
             if (!_iteratorNormalCompletion3 && _iterator3.return) {
               _iterator3.return();
             }
 
-          case 32:
-            _context3.prev = 32;
+          case 33:
+            _context3.prev = 33;
 
             if (!_didIteratorError3) {
-              _context3.next = 35;
+              _context3.next = 36;
               break;
             }
 
             throw _iteratorError3;
 
-          case 35:
-            return _context3.finish(32);
-
           case 36:
-            return _context3.finish(29);
+            return _context3.finish(33);
 
           case 37:
+            return _context3.finish(30);
+
+          case 38:
 
             consoleInfo(app, 'Ready');
-            _context3.next = 41;
+            _context3.next = 42;
             break;
 
-          case 40:
+          case 41:
             consoleInfo(app, 'No modules provided.');
 
-          case 41:
+          case 42:
             return _context3.abrupt('return', app);
 
-          case 44:
-            _context3.prev = 44;
-            _context3.t1 = _context3['catch'](7);
+          case 45:
+            _context3.prev = 45;
+            _context3.t1 = _context3['catch'](8);
 
             consoleError(app, _context3.t1.stack);
 
-          case 47:
+          case 48:
           case 'end':
             return _context3.stop();
         }
       }
-    }, _callee3, this, [[7, 44], [14, 25, 29, 37], [30,, 32, 36]]);
+    }, _callee3, this, [[8, 45], [15, 26, 30, 38], [31,, 33, 37]]);
   }));
 
   function Magnet(_x) {

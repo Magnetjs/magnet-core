@@ -68,13 +68,14 @@ export default async function Magnet(modules = []) {
     } catch (err) {
       consoleError(app, err);
     } finally {
-      consoleInfo(app, 'finally');
+      consoleInfo(app, 'Finally shutdown server');
       process.kill(process.pid, 'SIGUSR2');
     }
   }
 
   process.once('uncaughtException', errorHandler);
   process.once('SIGUSR2', errorHandler);
+  process.once('SIGINT', errorHandler);
 
   try {
     if (modules.length) {
