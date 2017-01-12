@@ -1,7 +1,12 @@
 [![Build Status](https://travis-ci.org/Magnetjs/magnet-core.svg?branch=master)](https://travis-ci.org/Magnetjs/magnet-core)
 
 ### Philosophy
-- Standard is god, we define the structure.
+- Standard is god.
+- It only do following:
+  - Define folder structure
+  - Define where to load config
+  - Define how to setup and teardown modules
+  - Define how to pass around module
 - Everything else is up to you.
 
 ### Status
