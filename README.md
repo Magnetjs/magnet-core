@@ -77,6 +77,7 @@ import Controller from 'magnet-controller';
 import Mongoose from 'magnet-mongoose';
 import Session from 'magnet-redis-session';
 import Respond from 'magnet-respond';
+import FileLoader from '../local_modules/file_loader';
 
 magnet([
   Config,
@@ -90,7 +91,11 @@ magnet([
     Router,
     Mongoose
   ],
-  Controller
+  Controller,
+  {
+    module: FileLoader,
+    options: ''
+  }
 ]);
 ```
 
