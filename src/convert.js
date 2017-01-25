@@ -1,4 +1,4 @@
-import base from 'magnet-core/dist/base'
+import base from './base'
 import get from 'lodash/get'
 import isFunction from 'lodash/isFunction'
 
