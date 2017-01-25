@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -17,19 +17,24 @@
     "CHANGELOG.md",
     "dist"
   ],
-  "main": "dist/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Magnetjs/magnet-core.git"
   },
   "scripts": {
-    "build": "babel src --out-dir dist",
-    "prepublish": "npm run build",
     "start": "babel src --out-dir dist",
     "test": "ava | tap-spec",
     "watch": "nodemon --ignore dist --exec \"babel src\" --out-dir dist --source-maps",
     "watch-all": "concurrently \"npm run watch\" \"npm run watch-test\"",
-    "watch-test": "ava --watch | tap-spec"
+    "watch-test": "ava --watch | tap-spec",
+
+    "build": "npm run clean-lib && npm run build:index && npm run copy-package",
+    "build:index": "babel src --out-dir dist",
+
+    "clean-lib": "node_modules/.bin/rimraf ./dist",
+    "copy-package": "cp -rf package.json LICENSE README.md dist",
+    "dist": "cd dist && npm publish"
   },
   "babel": {
     "presets": [
@@ -87,7 +92,9 @@
       }
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
   "devDependencies": {
     "ava": "^0.14.0",
     "babel-cli": "^6.6.5",
