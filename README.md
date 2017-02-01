@@ -113,6 +113,29 @@ magnet([
 ]);
 ```
 
+### Convert
+Utilities to quickly convert module to Magnet based
+```
+import algoliasearch from 'algoliasearch'
+import convert from 'magnet-core/convert'
+
+export default convert(algoliasearch, {
+  namespace: 'algolia',
+  params: ['config.applicationId', 'config.apiKey']
+})
+```
+
+```
+import convert from 'magnet-core/convert'
+import googleMaps from '@google/maps'
+
+export default convert(googleMaps, {
+  namespace: 'googleMaps',
+  initializer: 'createClient',
+  params: (config) => ({ key: config.apiKey, Promise: global.Promise })
+})
+```
+
 ### Roadmap
 - Change base path from `import Base from 'magnet-core/dist/base';` to `import Base from 'magnet-core/base';`
 - Improve error handling and detection
