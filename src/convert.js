@@ -13,6 +13,10 @@ import isFunction from 'lodash/isFunction'
  * @return void
  */
 export default function convert (module, { namespace, initializer, params }) {
+  function isClass (v) {
+    return typeof v === 'function' && v.prototype.constructor === v
+  }
+
   return class MagnetModule extends base {
     async setup () {
       const config = this.app.config[namespace]
@@ -27,6 +31,8 @@ export default function convert (module, { namespace, initializer, params }) {
             const configKey = param.replace('config.', '')
 
             moduleParams.push(get(config, configKey))
+          } else if (param === 'config') {
+            moduleParams.push(config)
           }
         }
       } else {
@@ -35,7 +41,11 @@ export default function convert (module, { namespace, initializer, params }) {
 
       const initialize = module[initializer] || module
 
-      this.app[namespace] = initialize(...moduleParams)
+      if (isClass(initialize)) {
+        this.app[namespace] = new initialize(...moduleParams)
+      } else {
+        this.app[namespace] = initialize(...moduleParams)
+      }
     }
   }
 }
