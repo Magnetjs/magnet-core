@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -36,7 +36,7 @@
 
     "clean-lib": "node_modules/.bin/rimraf ./dist",
     "copy-package": "cp -rf package.json LICENSE README.md dist",
-    "dist": "cd dist && npm publish"
+    "dist": "npm run build && cd dist && npm publish"
   },
   "babel": {
     "presets": [
