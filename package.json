@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -11,7 +11,10 @@
     "url": "https://github.com/Magnetjs/magnet-core/issues"
   },
   "license": "MIT",
-  "author": "Kieve Chua <kievechua@gmail.com>",
+  "author": "Kieve Chua <kievechua@gmail.com> (https://github.com/kievechua)",
+  "bin": {
+    "magnet": "./dist/cli.js"
+  },
   "files": [
     "README",
     "CHANGELOG.md",
