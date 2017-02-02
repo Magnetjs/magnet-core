@@ -12,14 +12,14 @@ import isFunction from 'lodash/isFunction'
  * @param  {[array, function]} options.params      Will pass to initializer
  * @return void
  */
-export default function convert (module, { namespace, initializer, params }) {
+export default function convert (module, { namespace, initializer, params }, defaultConfig = {}) {
   function isClass (v) {
     return typeof v === 'function' && v.prototype.constructor === v
   }
 
   return class MagnetModule extends base {
     async setup () {
-      const config = this.app.config[namespace]
+      const config = Object.assign(defaultConfig.bunyan, this.app.config[namespace])
 
       let moduleParams = []
 
