@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict'
+import 'babel-polyfill'
 
 import fsExtra from 'fs-extra'
 import glob from 'glob'
