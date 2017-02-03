@@ -19,7 +19,7 @@ export default function convert (module, { namespace, initializer, params }, def
 
   return class MagnetModule extends base {
     async setup () {
-      const config = Object.assign(defaultConfig.bunyan, this.app.config[namespace])
+      const config = Object.assign(defaultConfig, this.app.config[namespace])
 
       let moduleParams = []
 
