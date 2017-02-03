@@ -2,8 +2,6 @@ import base from './base'
 import get from 'lodash/get'
 import isFunction from 'lodash/isFunction'
 
-// TODO: Allow pass object as parameter
-
 /**
  * A simple module to quickly convert nodejs module to Magnet module
  * @param  {[function, object]} module      Module to be converted
@@ -12,7 +10,7 @@ import isFunction from 'lodash/isFunction'
  * @param  {[array, function]} options.params      Will pass to initializer
  * @return void
  */
-export default function convert (module, { namespace, initializer, params }, defaultConfig = {}) {
+export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}) {
   function isClass (v) {
     return typeof v === 'function' && v.prototype.constructor === v
   }
@@ -45,6 +43,13 @@ export default function convert (module, { namespace, initializer, params }, def
         this.app[namespace] = new initialize(...moduleParams)
       } else {
         this.app[namespace] = initialize(...moduleParams)
+      }
+    }
+
+    async teardown () {
+      if (teardown) {
+        this.app[namespace][teardown]()
+        this.log.info(`${namespace} teardown completed`)
       }
     }
   }
