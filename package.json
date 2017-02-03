@@ -100,6 +100,7 @@
     }
   },
   "dependencies": {
+    "fs-extra": "^2.0.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
@@ -111,10 +112,9 @@
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-0": "^6.5.0",
     "concurrently": "^2.0.0",
-    "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^7.0.0",
-    "eslint-plugin-import": "^1.1.0",
     "nodemon": "^1.9.1",
+    "rimraf": "^2.5.4",
+    "standard": "^8.6.0",
     "tap-spec": "^4.1.1"
   },
   "ava": {
