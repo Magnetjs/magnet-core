@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -15,6 +15,7 @@
   "bin": {
     "magnet": "./cli.js"
   },
+  "main": "index.js",
   "files": [
     "README",
     "CHANGELOG.md",
@@ -23,7 +24,7 @@
     "cli.js",
     "convert.js"
   ],
-  "main": "index.js",
+  "engines" : { "node" : ">= 6.0.0" },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Magnetjs/magnet-core.git"
@@ -46,7 +47,8 @@
     "presets": [
       "es2015",
       "stage-0"
-    ]
+    ],
+    "plugins": ["transform-async-to-generator"]
   },
   "eslintConfig": {
     "env": {
