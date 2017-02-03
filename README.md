@@ -136,7 +136,16 @@ export default convert(googleMaps, {
 })
 ```
 
+### CLI
+Magnet come with cli command to copy all config files from following to `server/config`:
+- `local_modules/**/config/*.js`
+- `node_modules/**/config/*.js`
+
+Just run from `./node_modules/.bin/magnet`
+
+Or install globally `npm install -g magnet-core` `yarn global add magnet-core`
+And run `magnet`
+
 ### Roadmap
-- Change base path from `import Base from 'magnet-core/dist/base';` to `import Base from 'magnet-core/base';`
 - Improve error handling and detection
 - Support teardown
