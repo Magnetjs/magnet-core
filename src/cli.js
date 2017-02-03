@@ -47,17 +47,6 @@ import pkg from './package.json'
     return flatten(configFiles)
   }
 
-  const getLocalModuleConfigFiles = async function (files) {
-    return await globAsync(`${process.cwd()}/local_modules/**/config/*.js`)
-    const configFiles = await _promise.all(
-      files.map(async (moduleName) => {
-        return await globAsync(`${process.cwd()}/local_modules/**/config/*.js`)
-      })
-    )
-
-    return flatten(configFiles)
-  }
-
   const formatPath = function (files) {
     return files.map((path) => ({
       path,
@@ -77,7 +66,7 @@ import pkg from './package.json'
     const magnetModules = getMagnetModule(allPackageJSON)
     let [moduleConfigFiles, localModuleConfigFiles, currentConfigFiles] = await _promise.all([
       getModuleConfigFiles(magnetModules),
-      getLocalModuleConfigFiles(),
+      globAsync(`${process.cwd()}/local_modules/**/config/*.js`),
       globAsync('./server/config/**.js')
     ])
 
@@ -85,12 +74,10 @@ import pkg from './package.json'
     localModuleConfigFiles = formatPath(localModuleConfigFiles)
     currentConfigFiles = formatPath(currentConfigFiles)
 
-    await _promise.all(
-      copyFile(moduleConfigFiles, currentConfigFiles)
-    )
-    await _promise.all(
-      copyFile(localModuleConfigFiles, currentConfigFiles)
-    )
+    await _promise.all([
+      ...copyFile(moduleConfigFiles, currentConfigFiles),
+      ...copyFile(localModuleConfigFiles, currentConfigFiles)
+    ])
     console.log('Completed copy config files')
 
     updateNotifier({ pkg }).notify()

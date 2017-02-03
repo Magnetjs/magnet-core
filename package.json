@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "2.3.4",
+  "version": "2.4.1",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
