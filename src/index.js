@@ -1,97 +1,151 @@
-import flatten from 'lodash/flatten'
+import flow from 'lodash/fp/flow'
+import map from 'lodash/fp/map'
+import reverse from 'lodash/fp/reverse'
+import flatten from 'lodash/fp/flatten'
+import compact from 'lodash/fp/compact'
 
-function consoleInfo (app, message) {
-  if (app && app.log && app.log.info) {
-    app.log.info(message)
-  } else {
-    console.log(message)
-  }
+import Log from './log'
+import { reflect } from './utils'
+
+function retrieveReflect (list, field) {
+  return flow(
+    map(field),
+    compact
+  )(list)
 }
 
-function consoleError (app, message) {
-  if (app && app.log && app.log.error) {
-    app.log.error(message)
-  } else {
-    console.error(app, message)
+async function setupModules (app, pModule) {
+  try {
+    let task
+    let Module
+    let parameters = [app]
+
+    if (pModule.module) {
+      Module = pModule.module
+      parameters.push(pModule.options)
+    } else {
+      Module = pModule
+    }
+
+    task = new Module(...parameters)
+
+    if (task.setup) {
+      await task.setup()
+
+      if (task.teardown) {
+        return task.teardown.bind(task)
+      }
+    } else {
+      app.magnet.log.warn(`Module ${task.constructor.name} missing setup function`)
+    }
+  } catch (err) {
+    throw err
   }
 }
 
 async function performTasks (app, modules) {
-  const tds = []
+  let allModuleDone
+  let teardowns = []
+  let fails = []
+
   try {
-    for (const Module of modules) {
-      if (Array.isArray(Module)) {
-        tds.push(await performTasks(app, Module))
-      } else {
-        let task
-        if (Module.module) {
-          task = new Module.module(app, Module.options)
-        } else {
-          task = new Module(app)
-        }
+    for (let mdls of modules) {
+      if (!Array.isArray(mdls)) {
+        mdls = [mdls]
+      }
 
-        if (task.setup) {
-          await task.setup()
-        }
+      mdls = mdls.map((mo) => setupModules(app, mo))
 
-        if (task.teardown) {
-          tds.push(task.teardown.bind(task))
-        }
+      allModuleDone = await Promise.all(mdls.map(reflect))
+
+      teardowns.push(retrieveReflect(allModuleDone, 'value'))
+      fails = retrieveReflect(allModuleDone, 'error')
+
+      if (fails.length) {
+        return { teardowns, fails }
       }
     }
 
-    return tds
+    return { teardowns, fails }
   } catch (err) {
-    consoleError(app, err)
-    return tds
+    app.magnet.log.error(err)
+    return { teardowns, fails }
   }
 }
 
-/**
- * We can change setup to be middleware based, but now let keep it simple with array only.
- */
-export default async function Magnet (modules = []) {
-  let app = {}
+async function errorHandler (app, err) {
+  if (err) {
+    app.magnet.log.error(err)
+  }
+
   try {
-    let teardowns = []
+    await app.magnet.shutdown(app)
+    app.magnet.log.info('Complete teardown all Magnet\'s module')
+  } catch (err) {
+    app.magnet.log.error(err)
+    throw err
+  } finally {
+    process.kill(process.pid, 'SIGUSR2')
+  }
+}
 
-    const errorHandler = async function (err) {
-      if (err) {
-        consoleError(app, err)
-      }
-
-      try {
-        await Promise.all(
-          flatten(teardowns)
-            .reverse()
-            .map((teardown) => teardown())
+export default async function Magnet (modules) {
+  let app = {
+    magnet: {
+      async shutdown () {
+        const result = await Promise.all(
+          flow(
+            flatten,
+            compact,
+            reverse,
+            map((teardown) => teardown())
+          )(app.magnet.teardowns)
+          .map(reflect)
         )
-      } catch (err) {
-        consoleError(app, err)
-      } finally {
-        consoleInfo(app, 'Complete teardown all Magnet\'s module')
-        process.kill(process.pid, 'SIGUSR2')
+
+        const fails = retrieveReflect(result, 'error')
+        if (fails.length) {
+          for (const fail of fails) {
+            app.magnet.log.error(fail)
+          }
+
+          throw new Error('Some modules cannot teardown')
+        }
+      },
+      teardowns: [],
+      log: new Log(app, { name: 'magnet-core', level: 'error' })
+      // log: new Log(app, { name: 'magnet-core', level: 'info' })
+    }
+  }
+
+  process.once('uncaughtException', errorHandler.bind(null, app))
+  process.once('SIGUSR2', errorHandler.bind(null, app))
+  process.once('SIGINT', errorHandler.bind(null, app))
+  process.once('exit', errorHandler.bind(null, app))
+
+  if (!Array.isArray(modules)) {
+    throw new TypeError('Modules should pass in as array')
+  } else if (!modules.length) {
+    throw new Error('No modules provided')
+  }
+
+  try {
+    const result = await performTasks(app, modules)
+    app.magnet.teardowns = result.teardowns
+
+    if (result.fails.length) {
+      for (const fail of result.fails) {
+        app.magnet.log.error(fail.error)
       }
+
+      throw new Error('Some modules cannot setup')
     }
 
-    process.once('uncaughtException', errorHandler)
-    process.once('SIGUSR2', errorHandler)
-    process.once('SIGINT', errorHandler)
-
-    if (!Array.isArray(modules)) {
-      consoleError(app, 'Modules should pass in as array')
-      return
-    } else if (!modules.length) {
-      consoleInfo(app, 'No modules provided')
-      return
-    }
-
-    teardowns = await performTasks(app, modules)
-
-    consoleInfo(app, 'Ready')
+    app.magnet.log.info('Ready')
 
     return app
   } catch (err) {
-    consoleError(app, err.stack)
+    app.magnet.log.error(err.stack)
+    throw err
   }
 }
