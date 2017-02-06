@@ -1,4 +1,4 @@
-import base from './base'
+import Base from './base'
 import get from 'lodash/get'
 import isFunction from 'lodash/isFunction'
 
@@ -15,7 +15,11 @@ export default function convert (module, { namespace, initializer, params, teard
     return typeof v === 'function' && v.prototype.constructor === v
   }
 
-  return class MagnetModule extends base {
+  return class MagnetModule extends Base {
+    // Set class name
+    // http://stackoverflow.com/a/41787315/788518
+    static get name () { return namespace }
+
     async setup () {
       const config = Object.assign(defaultConfig, this.app.config[namespace])
 
@@ -47,7 +51,7 @@ export default function convert (module, { namespace, initializer, params, teard
     }
 
     async teardown () {
-      if (teardown) {
+      if (teardown && this.app[namespace] && this.app[namespace][teardown]) {
         this.app[namespace][teardown]()
         this.log.info(`${namespace} teardown completed`)
       }
