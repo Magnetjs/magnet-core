@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -16,14 +16,6 @@
     "magnet": "./cli.js"
   },
   "main": "index.js",
-  "files": [
-    "README",
-    "CHANGELOG.md",
-    "index.js",
-    "base.js",
-    "cli.js",
-    "convert.js"
-  ],
   "engines": {
     "node": ">= 6.0.0"
   },
