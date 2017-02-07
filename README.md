@@ -147,5 +147,3 @@ Or install globally `npm install -g magnet-core` `yarn global add magnet-core`
 And run `magnet`
 
 ### Roadmap
-- Improve error handling and detection
-- Support teardown
