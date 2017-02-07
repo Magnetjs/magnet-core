@@ -135,7 +135,7 @@ export default async function Magnet (modules) {
 
     if (result.fails.length) {
       for (const fail of result.fails) {
-        app.magnet.log.error(fail.error)
+        app.magnet.log.error(fail)
       }
 
       throw new Error('Some modules cannot setup')

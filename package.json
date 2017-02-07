@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -29,6 +29,7 @@
     "watch": "nodemon --ignore dist --exec \"babel src\" --out-dir dist --source-maps",
     "watch-all": "concurrently \"npm run watch\" \"npm run watch-test\"",
     "watch-test": "ava --watch | tap-spec",
+
     "build": "npm run clean-lib && npm run build:index && npm run copy-package",
     "build:index": "babel src --out-dir dist",
     "clean-lib": "node_modules/.bin/rimraf ./dist",
