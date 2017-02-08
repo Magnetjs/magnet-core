@@ -147,3 +147,4 @@ Or install globally `npm install -g magnet-core` `yarn global add magnet-core`
 And run `magnet`
 
 ### Roadmap
+- Find solution to copy config/* without babel
