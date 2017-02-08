@@ -6,6 +6,7 @@ import compact from 'lodash/fp/compact'
 
 import Log from './log'
 import { reflect } from './utils'
+import copyConfig from './copy-config'
 
 function retrieveReflect (list, field) {
   return flow(
@@ -139,6 +140,10 @@ export default async function Magnet (modules) {
       }
 
       throw new Error('Some modules cannot setup')
+    }
+
+    if (app.config.magnet.autoCopyConfig) {
+      await copyConfig(app)
     }
 
     app.magnet.log.info('Ready')
