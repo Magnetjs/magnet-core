@@ -38,7 +38,7 @@ export default async function (app) {
   const getModuleConfigFiles = async function (files) {
     const configFiles = await _promise.all(
       files.map(async (moduleName) => {
-        return await globAsync(`${process.cwd()}/node_modules/${moduleName}/**/config/*.js`)
+        return await globAsync(`${process.cwd()}/node_modules/${moduleName}/*/config/*.js`)
       })
     )
 
@@ -57,7 +57,7 @@ export default async function (app) {
       (moduleFile, currentFile) => moduleFile.name === currentFile.name
     ),
     map((file) => {
-      app.magnet.log.info(`Copying ${file.path}`)
+      console.log(`Copying ${file.path}`)
       return fse.copyAsync(file.path, `./server/config/${file.name}`)
     })
   )
@@ -69,7 +69,7 @@ export default async function (app) {
     const magnetModules = filterOutMagnetModule(allPackageJSON)
     let [moduleConfigFiles, localModuleConfigFiles, currentConfigFiles] = await _promise.all([
       getModuleConfigFiles(magnetModules),
-      globAsync(`${process.cwd()}/local_modules/**/config/*.js`),
+      globAsync(`${process.cwd()}/local_modules/*/config/*.js`),
       globAsync('./server/config/**.js')
     ])
 
@@ -81,8 +81,8 @@ export default async function (app) {
       ...copyFiles(moduleConfigFiles, currentConfigFiles),
       ...copyFiles(localModuleConfigFiles, currentConfigFiles)
     ])
-    app.magnet.log.info('Completed copy config files')
+    console.log('Completed copy config files')
   } catch (err) {
-    app.magnet.log.error(err)
+    console.error(err)
   }
 }
