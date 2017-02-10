@@ -81,12 +81,11 @@ async function errorHandler (app, err) {
 
   try {
     await app.magnet.shutdown(app)
-    app.magnet.log.info('Complete teardown all Magnet\'s module')
+    console.log('Complete teardown all Magnet\'s module')
+    process.exit()
   } catch (err) {
     app.magnet.log.error(err)
-    throw err
-  } finally {
-    process.kill(process.pid, 'SIGUSR2')
+    process.exit(1)
   }
 }
 
@@ -115,14 +114,12 @@ export default async function Magnet (modules) {
       },
       teardowns: [],
       log: new Log(app, { name: 'magnet-core', level: 'error' })
-      // log: new Log(app, { name: 'magnet-core', level: 'info' })
     }
   }
 
   process.once('uncaughtException', errorHandler.bind(null, app))
   process.once('SIGUSR2', errorHandler.bind(null, app))
   process.once('SIGINT', errorHandler.bind(null, app))
-  process.once('exit', errorHandler.bind(null, app))
 
   if (!Array.isArray(modules)) {
     throw new TypeError('Modules should pass in as array')
