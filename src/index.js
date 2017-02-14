@@ -112,10 +112,11 @@ export default async function Magnet (modules) {
           throw new Error('Some modules cannot teardown')
         }
       },
-      teardowns: [],
-      log: new Log(app, { name: 'magnet-core', level: 'error' })
+      teardowns: []
     }
   }
+
+  app.magnet.log = new Log(app, { name: 'magnet-core', level: 'error' })
 
   process.once('uncaughtException', errorHandler.bind(null, app))
   process.once('SIGUSR2', errorHandler.bind(null, app))
