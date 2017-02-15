@@ -21,6 +21,11 @@ async function setupModules (app, pModule) {
     let Module
     let parameters = [app]
 
+    if (!pModule) {
+      app.magnet.log.warn(`Empty module`)
+      return
+    }
+
     if (pModule.module) {
       Module = pModule.module
       parameters.push(pModule.options)
