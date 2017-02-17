@@ -1,6 +1,8 @@
-import Base from './base'
 import get from 'lodash/get'
 import isFunction from 'lodash/isFunction'
+
+import Base from './base'
+import { isClass } from './utils'
 
 /**
  * A simple module to quickly convert nodejs module to Magnet module
@@ -11,17 +13,13 @@ import isFunction from 'lodash/isFunction'
  * @return void
  */
 export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}) {
-  function isClass (v) {
-    return typeof v === 'function' && v.prototype.constructor === v
-  }
-
   return class MagnetModule extends Base {
     // Set class name
     // http://stackoverflow.com/a/41787315/788518
     static get name () { return namespace }
 
     async setup () {
-      const config = Object.assign(defaultConfig, this.app.config[namespace])
+      const config = this.setConfig(namespace, defaultConfig)
 
       let moduleParams = []
 
