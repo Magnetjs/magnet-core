@@ -7,7 +7,6 @@ export default class Base {
   }
 
   setConfig (ns, dConfig) {
-    this.config = Object.assign(dConfig, this.config[ns], this.options)
-    return this.config
+    return Object.assign(dConfig, this.config[ns], this.options)
   }
 }
