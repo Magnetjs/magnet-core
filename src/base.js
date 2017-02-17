@@ -5,4 +5,9 @@ export default class Base {
     this.config = app.config
     this.options = options
   }
+
+  setConfig (ns, dConfig) {
+    this.config = Object.assign(dConfig, this.config[ns], this.options)
+    return this.config
+  }
 }
