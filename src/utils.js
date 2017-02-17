@@ -8,3 +8,7 @@ export async function reflect (promise) {
     return { error, status: 'rejected' }
   }
 }
+
+export function isClass (v) {
+  return typeof v === 'function' && v.prototype.constructor === v
+}
