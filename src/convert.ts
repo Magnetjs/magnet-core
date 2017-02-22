@@ -1,5 +1,5 @@
-import get from 'lodash/get'
-import isFunction from 'lodash/isFunction'
+import get = require('lodash/get')
+import isFunction = require('lodash/isFunction')
 
 import Base from './base'
 import { isClass } from './utils'
@@ -12,7 +12,7 @@ import { isClass } from './utils'
  * @param  {[array, function]} options.params      Will pass to initializer
  * @return void
  */
-export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}) {
+export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}): any {
   return class MagnetModule extends Base {
     // Set class name
     // http://stackoverflow.com/a/41787315/788518
@@ -21,8 +21,8 @@ export default function convert (module, { namespace, initializer, params, teard
     async setup () {
       const config = this.setConfig(namespace, defaultConfig)
 
+      // Prepare parameters
       let moduleParams = []
-
       if (isFunction(params)) {
         moduleParams = [params(config)]
       } else if (Array.isArray(params)) {
@@ -40,7 +40,6 @@ export default function convert (module, { namespace, initializer, params, teard
       }
 
       const initialize = module[initializer] || module
-
       if (isClass(initialize)) {
         this.app[namespace] = new initialize(...moduleParams)
       } else {

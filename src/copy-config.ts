@@ -7,15 +7,16 @@ import without from 'lodash/fp/without'
 import flow from 'lodash/fp/flow'
 import map from 'lodash/fp/map'
 import compact from 'lodash/fp/compact'
-import flatten from 'lodash/flatten'
-import intersection from 'lodash/intersection'
-import pkg from './package.json'
+import flatten = require('lodash/flatten')
+import intersection = require('lodash/intersection')
+// TODO: Only get when from cli
+// import pkg from './package.json'
 
-export default async function (app) {
+export default async function (): Promise<void> {
   const globAsync = _promise.promisify(glob)
   const fse = _promise.promisifyAll(fsExtra)
 
-  const getNodeModulePackageJSON = async function (inputs) {
+  const getNodeModulePackageJSON = async function (): Promise<any> {
     const allPackageJSON = await globAsync('./node_modules/*/package.json')
 
     return await _promise.all(
@@ -63,7 +64,7 @@ export default async function (app) {
   )
 
   try {
-    updateNotifier({ pkg }).notify()
+    updateNotifier({ pkg: require('./package.json') }).notify()
 
     const allPackageJSON = await getNodeModulePackageJSON()
     const magnetModules = filterOutMagnetModule(allPackageJSON)

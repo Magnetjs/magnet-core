@@ -1,8 +1,8 @@
-import flow from 'lodash/fp/flow'
-import map from 'lodash/fp/map'
-import reverse from 'lodash/fp/reverse'
-import flatten from 'lodash/fp/flatten'
-import compact from 'lodash/fp/compact'
+import flow = require('lodash/fp/flow')
+import map = require('lodash/fp/map')
+import reverse = require('lodash/fp/reverse')
+import flatten = require('lodash/fp/flatten')
+import compact = require('lodash/fp/compact')
 
 import Log from './log'
 import { reflect } from './utils'
@@ -49,7 +49,10 @@ async function setupModules (app, pModule) {
   }
 }
 
-async function performTasks (app, modules) {
+async function performTasks (app: any, modules: any[]): Promise<{
+  fails: any[]
+  teardowns: any[]
+}> {
   let allModuleDone
   let teardowns = []
   let fails = []
@@ -79,7 +82,7 @@ async function performTasks (app, modules) {
   }
 }
 
-async function errorHandler (app, err) {
+async function errorHandler (app, err): Promise<void> {
   if (err) {
     app.magnet.log.error(err)
   }
@@ -94,33 +97,43 @@ async function errorHandler (app, err) {
   }
 }
 
-export default async function Magnet (modules) {
-  let app = {
-    magnet: {
-      async shutdown () {
-        const result = await Promise.all(
-          flow(
-            flatten,
-            compact,
-            reverse,
-            map((teardown) => teardown())
-          )(app.magnet.teardowns)
-          .map(reflect)
-        )
+class Magnet {
+  teardowns: any[] = []
+  log: any
 
-        const fails = retrieveReflect(result, 'error')
-        if (fails.length) {
-          for (const fail of fails) {
-            app.magnet.log.error(fail)
-          }
+  // constructor () {
+  //
+  // }
+  async shutdown (): Promise<void> {
+    const result = await Promise.all(
+      flow(
+        flatten,
+        compact,
+        reverse,
+        map((teardown) => teardown())
+      )(this.teardowns)
+      .map(reflect)
+    )
 
-          throw new Error('Some modules cannot teardown')
-        }
-      },
-      teardowns: []
+    const fails = retrieveReflect(result, 'error')
+    if (fails.length) {
+      for (const fail of fails) {
+        this.log.error(fail)
+      }
+
+      throw new Error('Some modules cannot teardown')
     }
   }
+}
 
+export default async function MagnetFn (modules): Promise<Object> {
+  interface App {
+    magnet: Magnet
+    config: any
+  }
+
+  let app: App
+  app.magnet = new Magnet()
   app.magnet.log = new Log(app, { name: 'magnet-core', level: 'error' })
 
   process.once('uncaughtException', errorHandler.bind(null, app))
@@ -146,7 +159,7 @@ export default async function Magnet (modules) {
     }
 
     if (app.config.magnet.autoCopyConfig) {
-      await copyConfig(app)
+      await copyConfig()
     }
 
     app.magnet.log.info('Ready')

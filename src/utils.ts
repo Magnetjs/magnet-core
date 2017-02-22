@@ -1,6 +1,6 @@
 // Wait Promise.all to finish all promise
 // http://stackoverflow.com/a/31424853/788518
-export async function reflect (promise) {
+export async function reflect (promise): Promise<Object> {
   try {
     const value = await promise
     return { value, status: 'resolved' }
@@ -9,6 +9,6 @@ export async function reflect (promise) {
   }
 }
 
-export function isClass (v) {
+export function isClass (v: any): boolean {
   return typeof v === 'function' && v.prototype.constructor === v
 }

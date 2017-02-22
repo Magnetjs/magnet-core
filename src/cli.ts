@@ -3,4 +3,6 @@ import 'babel-polyfill'
 
 import copyConfig from './copy-config'
 
-copyConfig()
+(async function () {
+  await copyConfig()
+})()
