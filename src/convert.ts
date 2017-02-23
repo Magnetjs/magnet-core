@@ -1,8 +1,10 @@
 import get = require('lodash/get')
 import isFunction = require('lodash/isFunction')
 
-import Base from './base'
+import { Module } from './module'
 import { isClass } from './utils'
+import { LogAbstract } from './log'
+import { App } from './app'
 
 /**
  * A simple module to quickly convert nodejs module to Magnet module
@@ -13,12 +15,26 @@ import { isClass } from './utils'
  * @return void
  */
 export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}): any {
-  return class MagnetModule extends Base {
+  return class ConvertMagnetModule extends Module {
+    // app: App
+    // log: LogAbstract
+    // config: any
+    // options: any
+
+    // constructor (app, options) {
+    //   super(app, options)
+    //
+    //   this.app = app
+    //   this.log = app.log
+    //   this.config = app.config
+    //   this.options = options
+    // }
+
     // Set class name
     // http://stackoverflow.com/a/41787315/788518
     static get name () { return namespace }
 
-    async setup () {
+    async setup (): Promise<void> {
       const config = this.setConfig(namespace, defaultConfig)
 
       // Prepare parameters
@@ -47,7 +63,7 @@ export default function convert (module, { namespace, initializer, params, teard
       }
     }
 
-    async teardown () {
+    async teardown (): Promise<void> {
       if (teardown && this.app[namespace] && this.app[namespace][teardown]) {
         this.app[namespace][teardown]()
         this.log.info(`${namespace} teardown completed`)

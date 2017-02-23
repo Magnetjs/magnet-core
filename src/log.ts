@@ -1,36 +1,19 @@
-import bunyan from 'bunyan'
+import * as bunyan from 'bunyan'
 
-// TODO: Refactor to interface
-export default class Log {
-  private app: any
-  private log: any
+export interface Log {
+  fatal()
+  error()
+  warn()
+  info()
+  debug()
+  trace()
+}
 
-  constructor (app: any, options: any = {}) {
-    this.app = app
-    this.log = bunyan.createLogger(options)
-  }
-
-  info (...message: any[]): void {
-    if (this.app && this.app.log && this.app.log.info) {
-      this.app.log.info(...message)
-    } else {
-      this.log.info(...message)
-    }
-  }
-
-  error (...message: any[]): void {
-    if (this.app && this.app.log && this.app.log.error) {
-      this.app.log.error(...message)
-    } else {
-      this.log.error(...message)
-    }
-  }
-
-  warn (...message: any[]): void {
-    if (this.app && this.app.log && this.app.log.error) {
-      this.app.log.warn(...message)
-    } else {
-      this.log.warn(...message)
-    }
-  }
+export abstract class LogAbstract implements Log {
+	fatal(...params: any[]) { throw new Error('Missing fatal') }
+  error(...params: any[]) { throw new Error('Missing error') }
+  warn(...params: any[]) { throw new Error('Missing warn') }
+  info(...params: any[]) { throw new Error('Missing info') }
+  debug(...params: any[]) { throw new Error('Missing debug') }
+  trace(...params: any[]) { throw new Error('Missing trace') }
 }

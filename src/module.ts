@@ -1,22 +1,25 @@
-import { App } from './app'
-import { Module } from './module'
 import { LogAbstract } from './log'
+import { App } from './app'
 
-export default class Base implements Module {
+export interface RuntimeModule {
+  module: Module
+  options: any
+}
+
+export abstract class Module {
   app: App
   log: LogAbstract
   config: any
   options: any
 
-  constructor (app: any = {}, options: any = {}) {
+  constructor (app: App, options: any = {}) {
     this.app = app
     this.log = app.log
     this.config = app.config
     this.options = options
-    this.log.warn(`${this.getName()} - magnet-core/base is depreciated, extend magnet-core/module instead`)
   }
 
-  getName () {
+  getName (): string {
     return this.constructor.name
   }
 
