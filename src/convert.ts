@@ -1,8 +1,10 @@
-import get from 'lodash/get'
-import isFunction from 'lodash/isFunction'
+import get = require('lodash/get')
+import isFunction = require('lodash/isFunction')
 
-import Base from './base'
+import { Module } from './module'
 import { isClass } from './utils'
+import { LogAbstract } from './log'
+import { App } from './app'
 
 /**
  * A simple module to quickly convert nodejs module to Magnet module
@@ -12,17 +14,31 @@ import { isClass } from './utils'
  * @param  {[array, function]} options.params      Will pass to initializer
  * @return void
  */
-export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}) {
-  return class MagnetModule extends Base {
+export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}): any {
+  return class ConvertMagnetModule extends Module {
+    // app: App
+    // log: LogAbstract
+    // config: any
+    // options: any
+
+    // constructor (app, options) {
+    //   super(app, options)
+    //
+    //   this.app = app
+    //   this.log = app.log
+    //   this.config = app.config
+    //   this.options = options
+    // }
+
     // Set class name
     // http://stackoverflow.com/a/41787315/788518
     static get name () { return namespace }
 
-    async setup () {
+    async setup (): Promise<void> {
       const config = this.setConfig(namespace, defaultConfig)
 
+      // Prepare parameters
       let moduleParams = []
-
       if (isFunction(params)) {
         moduleParams = [params(config)]
       } else if (Array.isArray(params)) {
@@ -40,7 +56,6 @@ export default function convert (module, { namespace, initializer, params, teard
       }
 
       const initialize = module[initializer] || module
-
       if (isClass(initialize)) {
         this.app[namespace] = new initialize(...moduleParams)
       } else {
@@ -48,7 +63,7 @@ export default function convert (module, { namespace, initializer, params, teard
       }
     }
 
-    async teardown () {
+    async teardown (): Promise<void> {
       if (teardown && this.app[namespace] && this.app[namespace][teardown]) {
         this.app[namespace][teardown]()
         this.log.info(`${namespace} teardown completed`)
