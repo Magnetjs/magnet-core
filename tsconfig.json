@@ -2,6 +2,7 @@
     "compilerOptions": {
         "sourceMap": true,
         "declaration": true,
+        "skipLibCheck": true,
         "target": "es6",
         "moduleResolution": "node",
         "module": "commonjs",
