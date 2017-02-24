@@ -15,9 +15,9 @@ export default async function MagnetFn (modules: Module[]|RuntimeModule[]): Prom
   }
 
   let app: App = {
-    magnet: new Magnet(),
     log: bunyan.createLogger({ name: 'magnet-core' })
   }
+  app.magnet = new Magnet(app)
 
   process.once('uncaughtException', errorHandler.bind(null, app))
   process.once('SIGUSR2', errorHandler.bind(null, app))

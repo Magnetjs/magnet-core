@@ -13,7 +13,7 @@ export default class Base {
     this.log = app.log
     this.config = app.config
     this.options = options
-    this.log.warn(`${this.getName()} - magnet-core/base is depreciated, extend magnet-core/module instead`)
+    this.app.log.warn(`${this.getName()} - magnet-core/base is depreciated, extend magnet-core/module instead`)
   }
 
   getName () {
@@ -25,7 +25,7 @@ export default class Base {
   }
 
   async setup (): Promise<void> {
-    this.log.warn(`Module ${this.getName()} missing setup function`)
+    this.app.log.warn(`Module ${this.getName()} missing setup function`)
   }
 
   async teardown (): Promise<void> {}
