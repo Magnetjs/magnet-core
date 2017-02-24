@@ -16,20 +16,6 @@ import { App } from './app'
  */
 export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}): any {
   return class ConvertMagnetModule extends Module {
-    // app: App
-    // log: LogAbstract
-    // config: any
-    // options: any
-
-    // constructor (app, options) {
-    //   super(app, options)
-    //
-    //   this.app = app
-    //   this.log = app.log
-    //   this.config = app.config
-    //   this.options = options
-    // }
-
     // Set class name
     // http://stackoverflow.com/a/41787315/788518
     static get name () { return namespace }

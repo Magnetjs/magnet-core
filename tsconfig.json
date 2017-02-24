@@ -7,7 +7,8 @@
         "module": "commonjs",
         "outDir": "./dist",
         "types": [
-          "node"
+          "node",
+          "lodash"
         ],
         "typeRoots": [
           "node_modules/@types"

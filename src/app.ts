@@ -3,6 +3,7 @@ import { LogAbstract } from './log'
 
 export interface App {
   magnet: Magnet
-  config?: any
   log?: LogAbstract
+  config?: any
+  [propName: string]: any
 }
