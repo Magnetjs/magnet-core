@@ -23,7 +23,13 @@ export abstract class Module {
     return this.constructor.name
   }
 
-  setConfig (ns: string, dConfig: any): any {
+  // depreciated, use getConfig
+  setConfig (ns: string, dConfig: any = {}): any {
+    this.log.warn(`setConfig is depreciated, use prepareConfig instead`)
+    return Object.assign(dConfig, this.config[ns], this.options)
+  }
+
+  prepareConfig (ns: string, dConfig: any = {}): any {
     return Object.assign(dConfig, this.config[ns], this.options)
   }
 
@@ -31,5 +37,5 @@ export abstract class Module {
     this.log.warn(`Module ${this.getName()} missing setup function`)
   }
 
-  async teardown (): Promise<void> {}
+  async teardown (): Promise<any> {}
 }

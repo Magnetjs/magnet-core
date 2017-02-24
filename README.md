@@ -148,3 +148,5 @@ And run `magnet`
 
 ### Roadmap
 - Find solution to copy config/* without babel
+- Update `config/*.js` when extra field introduced
+- Make this.app = {} immutable? Only can set via Module.set('redis', redis), or map, or both

@@ -2,7 +2,7 @@ import { App } from './app'
 import { Module } from './module'
 import { LogAbstract } from './log'
 
-export default class Base implements Module {
+export default class Base {
   app: App
   log: LogAbstract
   config: any
