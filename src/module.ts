@@ -11,6 +11,7 @@ export abstract class Module {
   log: LogAbstract
   config: any
   options: any
+  private _name: string;
 
   constructor (app: App, options: any = {}) {
     this.app = app
@@ -19,8 +20,12 @@ export abstract class Module {
     this.options = options
   }
 
-  getName (): string {
-    return this.constructor.name
+  get name (): string {
+    return this._name || this.constructor.name
+  }
+
+  set name (newName: string) {
+    this._name = newName;
   }
 
   // depreciated, use getConfig
@@ -34,7 +39,7 @@ export abstract class Module {
   }
 
   async setup (): Promise<void> {
-    this.log.warn(`Module ${this.getName()} missing setup function`)
+    this.log.warn(`Module ${this.name} missing setup function`)
   }
 
   async teardown (): Promise<any> {}
