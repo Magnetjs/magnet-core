@@ -14,14 +14,23 @@ import { App } from './app'
  * @param  {[array, function]} options.params      Will pass to initializer
  * @return void
  */
-export default function convert (module, { namespace, initializer, params, teardown }, defaultConfig = {}): any {
+export default function convert (module, convertOptions, defaultConfig = {}): any {
+  const { initializer, params, teardown } = convertOptions
+  const moduleName = convertOptions.namespace
+
   return class ConvertMagnetModule extends Module {
     // Set class name
     // http://stackoverflow.com/a/41787315/788518
-    static get name () { return namespace }
+    // static get name () { return namespace }
+
+    constructor (app: App, options: any = {}) {
+      super(app, options)
+
+      this.name = moduleName
+    }
 
     async setup (): Promise<void> {
-      const config = this.setConfig(namespace, defaultConfig)
+      const config = this.setConfig(moduleName, defaultConfig)
 
       // Prepare parameters
       let moduleParams = []
@@ -43,16 +52,16 @@ export default function convert (module, { namespace, initializer, params, teard
 
       const initialize = module[initializer] || module
       if (isClass(initialize)) {
-        this.app[namespace] = new initialize(...moduleParams)
+        this.app[moduleName] = new initialize(...moduleParams)
       } else {
-        this.app[namespace] = initialize(...moduleParams)
+        this.app[moduleName] = initialize(...moduleParams)
       }
     }
 
     async teardown (): Promise<void> {
-      if (teardown && this.app[namespace] && this.app[namespace][teardown]) {
-        this.app[namespace][teardown]()
-        this.log.info(`${namespace} teardown completed`)
+      if (teardown && this.app[moduleName] && this.app[moduleName][teardown]) {
+        this.app[moduleName][teardown]()
+        this.log.info(`${moduleName} teardown completed`)
       }
     }
   }
