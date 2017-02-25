@@ -30,7 +30,7 @@ export default function convert (module, convertOptions, defaultConfig = {}): an
     }
 
     async setup (): Promise<void> {
-      const config = this.setConfig(moduleName, defaultConfig)
+      const config = this.prepareConfig(moduleName, defaultConfig)
 
       // Prepare parameters
       let moduleParams = []
