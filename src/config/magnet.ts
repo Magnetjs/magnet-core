@@ -1,3 +1,4 @@
 export default {
-  autoCopyConfig: true
+  autoCopyConfig: true,
+  localModulesPath: '../../local_modules'
 }
