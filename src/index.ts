@@ -8,7 +8,6 @@ import { errorHandler } from './utils'
 import copyConfig from './copy-config'
 import defaultConfig from './config/magnet'
 
-let config
 export default async function MagnetFn (modules: Module[]|RuntimeModule[]): Promise<App> {
   if (!Array.isArray(modules)) {
     throw new TypeError('Modules should pass in as array')
@@ -42,8 +41,6 @@ export default async function MagnetFn (modules: Module[]|RuntimeModule[]): Prom
       await copyConfig()
     }
 
-    config = app.config
-
     app.log.info('Ready')
 
     return app
@@ -64,13 +61,13 @@ export function from (modulePath, options) {
   }
 }
 
-export function fromLocal (modulePath, options) {
+export function fromLocal (modulePath, options, localModulesPath = '../../local_modules') {
   if (options) {
     return {
-      module: require(`${config.localModulesPath}/${modulePath}`).default,
+      module: require(`${localModulesPath}/${modulePath}`).default,
       options
     }
   } else {
-    return require(`${config.localModulesPath}/${modulePath}`).default
+    return require(`${localModulesPath}/${modulePath}`).default
   }
 }
