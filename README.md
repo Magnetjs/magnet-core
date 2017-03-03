@@ -64,6 +64,71 @@ App = {
 ```
 
 ### Usage
+es6
+```
+import magnet from 'magnet-core';
+import Config from 'magnet-config';
+import Logger from 'magnet-bunyan';
+import Router from 'magnet-router';
+import FileLoader from '../local_modules/file_loader';
+
+magnet([
+  Config,
+  Logger,
+  Router,
+  {
+    module: FileLoader,
+    options: ''
+  }
+]);
+```
+
+es5
+```
+var magnet = require('magnet-core').default,
+var Config = ,
+var Logger = ,
+var Router = ,
+var FileLoader = require('../local_modules/file_loader').default,
+
+magnet([
+  require('magnet-config').default,
+  require('magnet-bunyan').default,
+  require('magnet-router').default,
+  {
+    module: FileLoader,
+    options: ''
+  }
+]);
+```
+
+Magnet style
+```
+import magnet, { from, fromLocal } from 'magnet-core';
+
+magnet([
+  from('magnet-config'),
+  from('magnet-bunyan'),
+  from('magnet-router'),
+  fromLocal('file_loader'),
+]);
+```
+
+### Example
+Scheduler Server
+```
+import magnet from 'magnet-core';
+import Config from 'magnet-config';
+import Logger from 'magnet-bunyan';
+import Kue from 'magnet-kue';
+
+magnet([
+  Config,
+  Logger,
+  Kue
+]);
+```
+
 API Server
 ```
 import magnet from 'magnet-core';
@@ -136,6 +201,26 @@ export default convert(googleMaps, {
 })
 ```
 
+### Naming
+All magnet module is store under app variables.
+To avoid conflict some rules is introduced.
+- magmet, config, log is reserved
+- npm organization scope replaced with underscore
+
+```
+// Reserved
+const app = {
+  magnet: null,
+  config: null,
+  log: null,
+}
+
+this.app.koa = new Koa()
+this.app._googleMaps = require('@google/maps').createClient({
+  key: 'your API key here'
+})
+```
+
 ### CLI
 Magnet come with cli command to copy all config files from following to `server/config`:
 - `local_modules/**/config/*.js`
@@ -150,3 +235,6 @@ And run `magnet`
 - Find solution to copy config/* without babel
 - Update `config/*.js` when extra field introduced
 - Make this.app = {} immutable? Only can set via Module.set('redis', redis), or map, or both
+
+### Todo
+- Why copyConfig doesn't get magnet-koa/config/koa
