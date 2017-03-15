@@ -1,4 +1,5 @@
 import isObject = require('lodash/isObject')
+import isFunction = require('lodash/isFunction')
 
 import { LogAbstract } from './log'
 import { App } from './app'
@@ -54,6 +55,10 @@ export abstract class Module {
   }
 
   prepareConfig (ns: string = '', dConfig: any = {}): any {
+    if (isFunction(dConfig)) {
+      dConfig = dConfig(this.app)
+    }
+
     if (ns) {
       return Object.assign(dConfig, this.app.config[ns], this.options)
     } else {
