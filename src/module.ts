@@ -27,9 +27,16 @@ export abstract class Module {
     this.options = options
 
     // Until es7 have a way to initialize property
-    this.config = this.meta
-      ? this.prepareConfig(this.meta.name, this.meta.defaultConfig)
-      : app.config
+    if (Array.isArray(this.meta)) {
+      this.config = this.prepareConfig(
+        this.meta[0],
+        (this.meta.length > 2) && require(`${this.meta[1]}/config/${this.meta[0]}`).default
+      )
+    } else if (typeof this.meta === 'string') {
+      this.config = this.prepareConfig(this.meta)
+    } else {
+      this.config = app.config
+    }
   }
 
   get name (): string {
@@ -61,7 +68,7 @@ export abstract class Module {
     }
 
     if (!ns) {
-      ns = this.meta.name
+      ns = this.meta[0]
     }
 
     if (this.app[ns]) {
