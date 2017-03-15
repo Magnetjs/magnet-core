@@ -1,4 +1,5 @@
 import * as bunyan from 'bunyan'
+import * as prequire from 'parent-require'
 
 import Magnet from './magnet'
 import { App } from './app'
@@ -50,24 +51,30 @@ export default async function MagnetFn (modules: Module[]|RuntimeModule[]): Prom
   }
 }
 
-export function from (modulePath, options) {
-  if (options) {
-    return {
-      module: require(modulePath).default,
-      options
-    }
-  } else {
-    return require(modulePath).default
+export function fromNode (modulePath, options) {
+  let mod
+  try {
+    mod = require(modulePath).default
+  } catch (err) {
+    mod = prequire(modulePath).default
   }
+
+  return options ? { module: mod, options } : mod
 }
 
-export function fromLocal (modulePath, options, localModulesPath = '../../local_modules') {
-  if (options) {
-    return {
-      module: require(`${localModulesPath}/${modulePath}`).default,
-      options
-    }
-  } else {
-    return require(`${localModulesPath}/${modulePath}`).default
+export function fromM (modulePath, options) {
+  let mod
+  try {
+    mod = require(`magnet-${modulePath}`).default
+  } catch (err) {
+    mod = prequire(`magnet-${modulePath}`).default
   }
+
+  return options ? { module: mod, options } : mod
+}
+
+export function fromLocal (modulePath, options, localModulesPath = 'local_modules') {
+  let mod = require(`${process.cwd()}/${localModulesPath}/${modulePath}`).default
+
+  return options ? { module: mod, options } : mod
 }

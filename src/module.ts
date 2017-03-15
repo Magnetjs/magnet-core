@@ -1,3 +1,5 @@
+import isObject = require('lodash/isObject')
+
 import { LogAbstract } from './log'
 import { App } from './app'
 
@@ -6,18 +8,28 @@ export interface RuntimeModule {
   options: any
 }
 
+export interface ModuleMeta {
+  name: string
+  defaultConfig: any
+}
+
 export abstract class Module {
   app: App
   log: LogAbstract
+  meta: ModuleMeta
   config: any
   options: any
-  private _name: string;
+  private _name: string
 
   constructor (app: App, options: any = {}) {
     this.app = app
     this.log = app.log
-    this.config = app.config
     this.options = options
+
+    // Until es7 have a way to initialize property
+    this.config = this.meta
+      ? this.prepareConfig(this.meta.name, this.meta.defaultConfig)
+      : app.config
   }
 
   get name (): string {
@@ -28,14 +40,35 @@ export abstract class Module {
     this._name = newName;
   }
 
-  // depreciated, use getConfig
+  // depreciated, use prepareConfig
   setConfig (ns: string, dConfig: any = {}): any {
     this.log.warn(`setConfig is depreciated, use prepareConfig instead`)
-    return Object.assign(dConfig, this.config[ns], this.options)
+    // return Object.assign(dConfig, this.app.config[ns], this.options)
   }
 
-  prepareConfig (ns: string, dConfig: any = {}): any {
-    return Object.assign(dConfig, this.config[ns], this.options)
+  prepareConfig (ns: string = '', dConfig: any = {}): any {
+    if (ns) {
+      return Object.assign(dConfig, this.app.config[ns], this.options)
+    } else {
+      return Object.assign(dConfig, this.options)
+    }
+  }
+
+  insert (ns: string, currentModule: any) {
+    if (!currentModule && isObject(ns)) {
+      currentModule = ns
+      ns = ''
+    }
+
+    if (!ns) {
+      ns = this.meta.name
+    }
+
+    if (this.app[ns]) {
+      this.log.warn(`${this.name}: Module ${ns} already exist, overridden anyway`)
+    }
+
+    this.app[ns] = currentModule
   }
 
   async setup (): Promise<void> {
