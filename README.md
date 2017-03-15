@@ -54,14 +54,12 @@ export default class Module extends Base {
 ```
 App = {
   config: // magnet-config
-  drivers: {
-    influxdb: // Influx client
-    influxdb2: // Influx client
-    rethinkdb: // Rethinkdb client
-    rethinkdbBackup: // Rethinkdb client
-  },
 };
 ```
+
+### Modules
+Allow Magnet module is searchable under magnetjs keywords
+[NPM search](https://www.npmjs.com/search?q=magnetjs)
 
 ### Usage
 es6

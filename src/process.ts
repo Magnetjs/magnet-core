@@ -8,7 +8,6 @@ export async function setupModules (app: App, pModule): Promise<PromiseReflect> 
     let parameters = [app]
 
     if (!pModule) {
-      app.log.warn(`Empty module`)
       return
     }
 
