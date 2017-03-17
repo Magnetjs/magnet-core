@@ -9,15 +9,11 @@ export interface RuntimeModule {
   options: any
 }
 
-export interface ModuleMeta {
-  name: string
-  defaultConfig: any
-}
-
 export abstract class Module {
+  moduleName: string
+  defaultConfig: any
   app: App
   log: LogAbstract
-  meta: ModuleMeta
   config: any
   options: any
   private _name: string
@@ -28,13 +24,13 @@ export abstract class Module {
     this.options = options
 
     // Until es7 have a way to initialize property
-    if (Array.isArray(this.meta)) {
+    if (this.moduleName) {
       this.config = this.prepareConfig(
-        this.meta[0],
-        (this.meta.length > 2) && require(`${this.meta[1]}/config/${this.meta[0]}`).default
+        this.moduleName,
+        (typeof this.defaultConfig === 'string')
+          ? require(`${this.defaultConfig}/config/${this.moduleName}`).default
+          : this.defaultConfig
       )
-    } else if (typeof this.meta === 'string') {
-      this.config = this.prepareConfig(this.meta)
     } else {
       this.config = app.config
     }
@@ -73,7 +69,7 @@ export abstract class Module {
     }
 
     if (!ns) {
-      ns = this.meta[0]
+      ns = this.moduleName
     }
 
     if (this.app[ns]) {
