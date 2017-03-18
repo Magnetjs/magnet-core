@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "3.7.3",
+  "version": "3.7.4",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -37,7 +37,8 @@
     "bunyan": "^1.8.5",
     "fs-extra": "^2.0.0",
     "lodash": "^4.17.4",
-    "parent-require": "^1.0.0"
+    "parent-require": "^1.0.0",
+    "update-notifier": "^2.1.0"
   },
   "devDependencies": {
     "ava": "^0.18.1",
