@@ -51,7 +51,7 @@ export default async function MagnetFn (modules: Module[]|RuntimeModule[]): Prom
   }
 }
 
-export function fromNode (modulePath, options) {
+export function fromNode (modulePath: string, options?: any) {
   let mod
   try {
     mod = require(modulePath).default
@@ -62,7 +62,7 @@ export function fromNode (modulePath, options) {
   return options ? { module: mod, options } : mod
 }
 
-export function fromM (modulePath, options) {
+export function fromM (modulePath: string, options?: any) {
   let mod
   try {
     mod = require(`magnet-${modulePath}`).default
@@ -73,8 +73,8 @@ export function fromM (modulePath, options) {
   return options ? { module: mod, options } : mod
 }
 
-export function fromLocal (modulePath, options, localModulesPath = 'local_modules') {
-  let mod = require(`${process.cwd()}/${localModulesPath}/${modulePath}`).default
+export function fromLocal (modulePath: string, options?: any, localModulesPath?: string = 'local_modules') {
+  const mod = require(`${process.cwd()}/${localModulesPath}/${modulePath}`).default
 
   return options ? { module: mod, options } : mod
 }
