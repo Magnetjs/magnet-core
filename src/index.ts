@@ -38,7 +38,11 @@ export default async function MagnetFn (modules: Module[]|RuntimeModule[]): Prom
       throw new Error('Some modules cannot setup')
     }
 
-    if (app.config && app.config.magnet && app.config.magnet.autoCopyConfig) {
+    let autoCopyConfig = defaultConfig.autoCopyConfig
+    autoCopyConfig = (app.config && app.config.magnet && app.config.magnet.autoCopyConfig)
+                      ? app.config.magnet.autoCopyConfig
+                      : autoCopyConfig
+    if (autoCopyConfig) {
       await copyConfig()
     }
 
@@ -73,7 +77,8 @@ export function fromM (modulePath: string, options?: any) {
   return options ? { module: mod, options } : mod
 }
 
-export function fromLocal (modulePath: string, options?: any, localModulesPath?: string = 'local_modules') {
+export function fromLocal (modulePath: string, options?: any) {
+  const localModulesPath: string = 'local_modules'
   const mod = require(`${process.cwd()}/${localModulesPath}/${modulePath}`).default
 
   return options ? { module: mod, options } : mod
