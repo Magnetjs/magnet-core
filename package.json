@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "3.7.6",
+  "version": "3.7.7",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -20,14 +20,10 @@
   },
   "repository": "magnetjs/magnet-core",
   "scripts": {
-    "build": "npm run clean-lib && npm run build:index && npm run copy-package",
-    "build:index": "node_modules/.bin/tsc",
-    "clean-lib": "node_modules/.bin/rimraf ./dist",
-    "copy-package": "cp -rf package.json LICENSE README.md dist",
+    "start": "fly",
+    "build": "fly buildAndCopy",
     "dist": "npm run build && cd dist && npm publish",
     "test": "ava",
-    "watch": "tsc -w",
-    "watch-all": "concurrently \"npm run watch\" \"npm run watch-test\"",
     "watch-test": "ava --watch | tap-spec"
   },
   "dependencies": {
@@ -37,15 +33,16 @@
     "bunyan": "^1.8.5",
     "fs-extra": "^2.0.0",
     "lodash": "^4.17.4",
-    "parent-require": "^1.0.0",
-    "update-notifier": "^2.1.0"
+    "parent-require": "^1.0.0"
   },
   "devDependencies": {
     "ava": "^0.18.1",
-    "concurrently": "^3.1.0",
-    "rimraf": "^2.5.4",
-    "tap-spec": "^4.1.1",
-    "typescript": "^2.2.1"
+    "fly": "^2.0.5",
+    "fly-clear": "^1.0.1",
+    "fly-esnext": "^2.0.1",
+    "fly-flatten": "^1.0.1",
+    "fly-typescript": "^1.0.0",
+    "fly-watch": "^1.1.1"
   },
   "engines": {
     "node": ">=6.9.5"
