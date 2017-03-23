@@ -1,7 +1,6 @@
 import * as fsExtra from 'fs-extra'
 import * as glob from 'glob'
 import * as _promise from 'bluebird'
-import * as updateNotifier from 'update-notifier'
 import * as differenceWith from 'lodash/fp/differenceWith'
 import * as without from 'lodash/fp/without'
 import * as flow from 'lodash/fp/flow'
@@ -65,8 +64,6 @@ const copyFiles = flow(
 
 export default async function (): Promise<void> {
   try {
-    updateNotifier({ pkg: require('./package.json') }).notify()
-
     const allPackageJSON = await getNodeModulePackageJSON()
     const magnetModules = filterOutMagnetModule(allPackageJSON)
     let [moduleConfigFiles, localModuleConfigFiles, currentConfigFiles] = await _promise.all([
