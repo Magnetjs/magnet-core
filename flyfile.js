@@ -33,8 +33,8 @@ export async function compileTypescript(fly) {
     .source('src/**/*.ts')
     .typescript({
       "sourceMap": true,
-      "declaration": true,
-      "skipLibCheck": true,
+      // "declaration": true,
+      // "skipLibCheck": true,
       "target": "es6",
       "moduleResolution": "node",
       "module": "commonjs",
