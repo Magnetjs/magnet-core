@@ -58,7 +58,7 @@ const copyFiles = flow(
     (moduleFile, currentFile) => moduleFile.name === currentFile.name
   ),
   map((file) => {
-    return fse.copyAsync(file.path, `./server/config/${file.name}`)
+    return fse.copyAsync(file.path, `./src/config/${file.name}`)
   })
 )
 
@@ -69,7 +69,7 @@ export default async function (): Promise<void> {
     let [moduleConfigFiles, localModuleConfigFiles, currentConfigFiles] = await _promise.all([
       getModuleConfigFiles(magnetModules),
       globAsync(`${process.cwd()}/local_modules/*/config/*.js`),
-      globAsync('./server/config/**.js')
+      globAsync('./src/config/**.js')
     ])
 
     moduleConfigFiles = formatPath(moduleConfigFiles)

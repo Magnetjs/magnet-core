@@ -12,14 +12,7 @@ export function fromNode (modulePath: string, options?: any) {
 }
 
 export function fromM (modulePath: string, options?: any) {
-  let mod
-  try {
-    mod = require(`magnet-${modulePath}`).default
-  } catch (err) {
-    mod = prequire(`magnet-${modulePath}`).default
-  }
-
-  return options ? { module: mod, options } : mod
+  return fromNode(`magnet-${modulePath}`, options)
 }
 
 export function fromLocal (modulePath: string, options?: any) {
