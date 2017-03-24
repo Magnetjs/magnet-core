@@ -1,3 +1,3 @@
 export default {
-  autoCopyConfig: true
+  autoCopyConfig: false
 }
