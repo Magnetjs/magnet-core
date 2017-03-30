@@ -5,7 +5,11 @@ export function fromNode (modulePath: string, options?: any) {
   try {
     mod = require(modulePath).default
   } catch (err) {
-    mod = prequire(modulePath).default
+    if (err.code === 'MODULE_NOT_FOUND') {
+      mod = prequire(modulePath).default
+    } else {
+      throw err
+    }
   }
 
   return options ? { module: mod, options } : mod
