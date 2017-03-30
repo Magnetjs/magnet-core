@@ -1,5 +1,5 @@
 export default async function (fly) {
-  await fly.start('build')
+  await fly.start('buildAndCopy')
   await fly.watch('src/**/*.ts', ['compileTypescript'])
 }
 
