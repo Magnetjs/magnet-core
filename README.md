@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/Magnetjs/magnet-core.svg?branch=master)](https://travis-ci.org/Magnetjs/magnet-core)
 
 ### Philosophy
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Magnetjs/magnet-core.svg)](https://greenkeeper.io/)
 - Standard is god.
 - It only do following:
   - Define folder structure
