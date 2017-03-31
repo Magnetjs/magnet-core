@@ -31,7 +31,7 @@
     "@types/node": "^7.0.5",
     "bluebird": "^3.4.7",
     "bunyan": "^1.8.5",
-    "fs-extra": "^2.0.0",
+    "fs-extra": "^2.1.0",
     "lodash": "^4.17.4",
     "parent-require": "^1.0.0"
   },
