@@ -36,7 +36,7 @@
     "parent-require": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^0.18.1",
+    "ava": "^0.19.0",
     "fly": "^2.0.5",
     "fly-clear": "^1.0.1",
     "fly-esnext": "^2.0.1",
