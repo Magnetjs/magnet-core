@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "3.8.2",
+  "version": "3.8.3",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -22,7 +22,7 @@
   "scripts": {
     "start": "fly",
     "build": "fly buildAndCopy",
-    "dist": "npm run build && cd dist && npm publish",
+    "dist": "tsc && fly copyBasic && cd dist && npm publish",
     "test": "ava",
     "watch-test": "ava --watch | tap-spec"
   },
