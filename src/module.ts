@@ -62,12 +62,7 @@ export abstract class Module {
     }
   }
 
-  insert (ns: string, currentModule: any) {
-    if (!currentModule && isObject(ns)) {
-      currentModule = ns
-      ns = ''
-    }
-
+  insert (currentModule: any, ns?: string) {
     if (!ns) {
       ns = this.moduleName
     }
