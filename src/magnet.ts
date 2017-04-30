@@ -23,7 +23,9 @@ export default class Magnet {
         flatten,
         compact,
         reverse,
-        map((teardown) => teardown())
+        map((teardown) => {
+          return teardown()
+        })
       )(this.teardowns)
       .map(reflect)
     )
