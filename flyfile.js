@@ -29,15 +29,16 @@ export async function copyBasic(fly) {
 }
 
 export async function compileTypescript(fly) {
-  yield fly
+  await fly
     .source('src/**/*.ts')
     .typescript({
       "sourceMap": true,
-      // "declaration": true,
+      "declaration": true,
       // "skipLibCheck": true,
       "target": "es6",
       "moduleResolution": "node",
       "module": "commonjs",
+      "declarationDir": "./dist",
       "outDir": "./dist",
       "types": [
         "node",
