@@ -22,7 +22,7 @@
   "scripts": {
     "start": "fly",
     "build": "fly buildAndCopy",
-    "dist": "npm run build && cd dist && npm publish",
+    "dist": "tsc && fly copyBasic && cd dist && npm publish",
     "test": "ava",
     "watch-test": "ava --watch | tap-spec"
   },
