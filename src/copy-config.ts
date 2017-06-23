@@ -1,4 +1,4 @@
-import * as fsExtra from 'fs-extra'
+import * as fs from 'fs-extra'
 import * as glob from 'glob'
 import * as _promise from 'bluebird'
 import * as differenceWith from 'lodash/fp/differenceWith'
@@ -12,13 +12,12 @@ import intersection = require('lodash/intersection')
 // import pkg from './package.json'
 
 const globAsync = _promise.promisify(glob)
-const fse = _promise.promisifyAll(fsExtra)
 
 const getNodeModulePackageJSON = async function (): Promise<any[]> {
   const allPackageJSON = await globAsync('./node_modules/*/package.json')
 
   return await _promise.all(
-    allPackageJSON.map((packageJSONPath) => fse.readJsonAsync(packageJSONPath))
+    allPackageJSON.map((packageJSONPath) => fs.readJson(packageJSONPath))
   )
 }
 
@@ -58,7 +57,7 @@ const copyFiles = flow(
     (moduleFile, currentFile) => moduleFile.name === currentFile.name
   ),
   map((file) => {
-    return fse.copyAsync(file.path, `./src/config/${file.name}`)
+    return fs.copy(file.path, `./src/config/${file.name}`)
   })
 )
 
