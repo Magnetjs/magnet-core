@@ -37,13 +37,13 @@
     ansi-styles "^2.2.1"
     esutils "^2.0.2"
 
-"@types/lodash@^4.14.52":
-  version "4.14.63"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.63.tgz#5ac475f55bfdc62bc88c4239dbc482f2f3bead93"
+"@types/lodash@^4.14.66":
+  version "4.14.66"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.66.tgz#3dbb83477becf130611f8fac82a8fdb199805981"
 
-"@types/node@^7.0.5":
-  version "7.0.14"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.14.tgz#1470fa002a113316ac9d9ad163fc738c7a0de2a4"
+"@types/node@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.1.tgz#89c271e0c3b9ebb6a3756dd601336970b6228b77"
 
 abbrev@1:
   version "1.1.0"
@@ -579,7 +579,7 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.0.0, bluebird@^3.4.7:
+bluebird@^3.0.0, bluebird@^3.4.7, bluebird@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
@@ -1105,9 +1105,9 @@ fly-flatten@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/fly-flatten/-/fly-flatten-1.0.1.tgz#f4d1c73d4c31d3e3c492336a0b265b405ceb1866"
 
-fly-typescript@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/fly-typescript/-/fly-typescript-1.1.0.tgz#159ea6c5ff5bfb935fedbc60d23a90d3dc89ea7b"
+fly-typescript@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/fly-typescript/-/fly-typescript-1.1.1.tgz#82ff4bac8cff46a34a2558c7dd80b067ba8c1e99"
   dependencies:
     typescript "^2.2.1"
 
@@ -1118,11 +1118,11 @@ fly-watch@^1.1.1:
     arrify "^1.0.1"
     chokidar "^1.6.1"
 
-fly@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/fly/-/fly-2.0.5.tgz#5c204bc1740d677eb231feeffc3313d7f5e86961"
+fly@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/fly/-/fly-2.0.6.tgz#77aa3c94e8e30ed235e06e91973f135dd55e03bd"
   dependencies:
-    bluebird "^3.4.7"
+    bluebird "^3.5.0"
     clor "^5.0.1"
     glob "^7.1.1"
     minimist "^1.2.0"
@@ -1154,9 +1154,9 @@ form-data@~2.1.1:
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
 
-fs-extra@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-3.0.0.tgz#244e0c4b0b8818f54040ec049d8a2bddc1202861"
+fs-extra@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-3.0.1.tgz#3794f378c58b342ea7dbbb23095109c4b3b62291"
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^3.0.0"
@@ -2738,9 +2738,13 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
-typescript@^2.2.1, typescript@^2.3.2:
+typescript@^2.2.1:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.2.tgz#f0f045e196f69a72f06b25fd3bd39d01c3ce9984"
+
+typescript@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
 uid-number@^0.0.6:
   version "0.0.6"
