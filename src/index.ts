@@ -17,7 +17,7 @@ export default async function MagnetFn (modules: Module[]|RuntimeModule[]): Prom
     throw new Error('No modules provided')
   }
 
-  let app: App = {
+  let app: App = <App>{
     log: bunyan.createLogger({ name: 'magnet-core' })
   }
   app.magnet = new Magnet(app)
