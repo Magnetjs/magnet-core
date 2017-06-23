@@ -236,3 +236,4 @@ And run `magnet`
 
 ### Todo
 - Why copyConfig doesn't get magnet-koa/config/koa
+- Auto build modules structure via npm dependencies
