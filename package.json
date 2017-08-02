@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "3.10.1",
+  "version": "3.11.0",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -27,23 +27,23 @@
     "watch-test": "ava --watch | tap-spec"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.66",
-    "@types/node": "^8.0.1",
     "bluebird": "^3.4.7",
     "bunyan": "^1.8.5",
     "fs-extra": "^3.0.1",
     "lodash": "^4.17.4",
-    "parent-require": "^1.0.0",
-    "typescript": "^2.3.4"
+    "parent-require": "^1.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.66",
+    "@types/node": "^8.0.1",
     "ava": "^0.19.1",
     "fly": "^2.0.6",
     "fly-clear": "^1.0.1",
     "fly-esnext": "^2.0.1",
     "fly-flatten": "^1.0.1",
     "fly-typescript": "^1.1.1",
-    "fly-watch": "^1.1.1"
+    "fly-watch": "^1.1.1",
+    "typescript": "^2.3.4"
   },
   "engines": {
     "node": ">=6.9.5"
