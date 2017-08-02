@@ -23,6 +23,10 @@ export abstract class Module {
     this.log = app.log
     this.options = options
 
+    if (options.moduleName) {
+      this.moduleName = options.moduleName
+    }
+
     // Until es7 have a way to initialize property
     if (this.moduleName) {
       this.config = this.prepareConfig(
