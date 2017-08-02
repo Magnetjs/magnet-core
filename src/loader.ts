@@ -7,9 +7,9 @@ export function fromNode (modulePath: string, options?: any) {
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       mod = prequire(modulePath).default
-    } else {
-      throw err
     }
+
+    throw err
   }
 
   return options ? { module: mod, options } : mod
