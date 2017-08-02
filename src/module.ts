@@ -48,6 +48,10 @@ export abstract class Module {
     this._name = newName;
   }
 
+  set moduleName (newModuleName: string) {
+    this.moduleName = newModuleName;
+  }
+
   // depreciated, use prepareConfig
   setConfig (ns: string, dConfig: any = {}): any {
     this.log.warn(`setConfig is depreciated, use prepareConfig instead`)
