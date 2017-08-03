@@ -5,7 +5,6 @@ export function fromNode (modulePath: string, options?: any) {
   try {
     mod = require(modulePath).default
   } catch (err) {
-    console.log('sssss', err)
     if (err.code === 'MODULE_NOT_FOUND') {
       // TODO: proper way to display error
       // Some error return as MODULE_NOT_FOUND
