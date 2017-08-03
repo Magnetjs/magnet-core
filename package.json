@@ -1,6 +1,6 @@
 {
   "name": "magnet-core",
-  "version": "3.11.1",
+  "version": "4.0.0",
   "description": "Magnet's core, a simple module loader.",
   "keywords": [
     "core",
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "bluebird": "^3.4.7",
-    "bunyan": "^1.8.5",
+    "bunyan": "^1.8.12",
     "fs-extra": "^3.0.1",
     "lodash": "^4.17.4",
     "parent-require": "^1.0.0"
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.66",
     "@types/node": "^8.0.1",
-    "ava": "^0.19.1",
+    "ava": "^0.21.0",
     "fly": "^2.0.6",
     "fly-clear": "^1.0.1",
     "fly-esnext": "^2.0.1",

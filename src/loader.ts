@@ -6,10 +6,12 @@ export function fromNode (modulePath: string, options?: any) {
     mod = require(modulePath).default
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
+      // TODO: proper way to display error
+      // Some error return as MODULE_NOT_FOUND
       mod = prequire(modulePath).default
+    } else {
+      throw err
     }
-
-    throw err
   }
 
   return options ? { module: mod, options } : mod
