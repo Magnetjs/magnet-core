@@ -13,10 +13,23 @@
 Under development, API might change for all Magnet modules.
 
 ### Module boilerplate
-```
+~~~javascript
 import Base from 'magnet-core/dist/base';
 
 export default class Module extends Base {
+  init () {
+    /*
+      E.g. You can put @google/maps | apollo-server-express | apollo-server,
+      it will format to snake case _google_maps | apollo_server_express | apollo_server.
+      So we can use it as _google_maps.geocode({ address: '1600 Amphitheatre Parkway, Mountain View, CA' }).
+      It's a Magnet practice to use npm module name for scoping, to reduce clash on namespace
+    */
+    this.moduleName = '<module npm name>'
+
+    // Optional, path of default config folder
+    this.defaultConfig = __dirname
+  }
+
   /**
    * Code to setup the module, either:
    * - Add module to this.app object
@@ -34,7 +47,8 @@ export default class Module extends Base {
     this.app.module = {};
   }
 }
-```
+~~~
+
 ### Folders structure
 - client
 - docs
@@ -51,11 +65,11 @@ export default class Module extends Base {
 - tests
 
 ### App structure
-```
+~~~javascript
 App = {
   config: // magnet-config
 };
-```
+~~~
 
 ### Modules
 Allow Magnet module is searchable under magnetjs keywords
@@ -63,7 +77,7 @@ Allow Magnet module is searchable under magnetjs keywords
 
 ### Usage
 es6
-```
+~~~javascript
 import magnet from 'magnet-core';
 import Config from 'magnet-config';
 import Logger from 'magnet-bunyan';
@@ -79,10 +93,10 @@ magnet([
     options: ''
   }
 ]);
-```
+~~~
 
 es5
-```
+~~~javascript
 var magnet = require('magnet-core').default,
 var Config = ,
 var Logger = ,
@@ -98,10 +112,10 @@ magnet([
     options: ''
   }
 ]);
-```
+~~~
 
 Magnet style
-```
+~~~javascript
 import magnet, { from, fromLocal } from 'magnet-core';
 
 magnet([
@@ -110,11 +124,11 @@ magnet([
   from('magnet-router'),
   fromLocal('file_loader'),
 ]);
-```
+~~~
 
 ### Example
 Scheduler Server
-```
+~~~javascript
 import magnet from 'magnet-core';
 import Config from 'magnet-config';
 import Logger from 'magnet-bunyan';
@@ -125,10 +139,10 @@ magnet([
   Logger,
   Kue
 ]);
-```
+~~~
 
 API Server
-```
+~~~javascript
 import magnet from 'magnet-core';
 import Config from 'magnet-config';
 import Logger from 'magnet-bunyan';
@@ -160,10 +174,30 @@ magnet([
     options: ''
   }
 ]);
-```
+~~~
 
 Scheduler Server
-```
+~~~javascript
+import magnet, { from, fromLocal } from 'magnet-core';
+
+magnet([
+  fromM('config'),
+  fromM('bunyan'),
+  fromM('file_loader'),
+  fromM('sequelize'),
+  fromM('sequelize', {
+    namespace: 'sequelizeAnotherDb',
+    database: 'anotherDb'
+  })
+]);
+
+// app.sequelize.query(...)
+// app.sequelizeAnotherDb.query(...)
+~~~
+
+### Multiple instance
+
+~~~javascript
 import magnet from 'magnet-core';
 import Config from 'magnet-config';
 import Logger from 'magnet-bunyan';
@@ -174,30 +208,7 @@ magnet([
   Logger,
   Kue
 ]);
-```
-
-### Convert
-Utilities to quickly convert module to Magnet based
-```
-import algoliasearch from 'algoliasearch'
-import convert from 'magnet-core/convert'
-
-export default convert(algoliasearch, {
-  namespace: 'algolia',
-  params: ['config.applicationId', 'config.apiKey']
-})
-```
-
-```
-import convert from 'magnet-core/convert'
-import googleMaps from '@google/maps'
-
-export default convert(googleMaps, {
-  namespace: 'googleMaps',
-  initializer: 'createClient',
-  params: (config) => ({ key: config.apiKey, Promise: global.Promise })
-})
-```
+~~~
 
 ### Naming
 All magnet module is store under app variables.
@@ -205,7 +216,7 @@ To avoid conflict some rules is introduced.
 - magmet, config, log is reserved
 - npm organization scope replaced with underscore
 
-```
+~~~javascript
 // Reserved
 const app = {
   magnet: null,
@@ -217,7 +228,7 @@ this.app.koa = new Koa()
 this.app._googleMaps = require('@google/maps').createClient({
   key: 'your API key here'
 })
-```
+~~~
 
 ### CLI
 Magnet come with cli command to copy all config files from following to `server/config`:

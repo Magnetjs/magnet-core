@@ -1,5 +1,6 @@
 import isObject = require('lodash/isObject')
 import isFunction = require('lodash/isFunction')
+import snakeCase = require('lodash/snakeCase')
 
 import { LogAbstract } from './log'
 import { App } from './app'
@@ -10,7 +11,10 @@ export interface RuntimeModule {
 }
 
 export abstract class Module {
+  name: string
+  originalModuleName: string
   moduleName: string
+  namespace: string
   defaultConfig: any
   app: App
   log: LogAbstract
@@ -22,9 +26,14 @@ export abstract class Module {
     this.app = app
     this.log = app.log
     this.options = options
+    this.name = this.constructor.name
 
-    if (options.moduleName) {
-      this.moduleName = options.moduleName
+    this.init()
+
+    this.originalModuleName = this.moduleName
+    this.moduleName = snakeCase(this.moduleName).replace('@', '_')
+    if (options.namespace) {
+      this.namespace = options.namespace
     }
 
     // Until es7 have a way to initialize property
@@ -35,44 +44,30 @@ export abstract class Module {
           ? require(`${this.defaultConfig}/config/${this.moduleName}`).default
           : this.defaultConfig
       )
-    } else {
-      this.config = app.config
     }
   }
 
-  get name (): string {
-    return this._name || this.constructor.name
-  }
+  init () {}
 
-  set name (newName: string) {
-    this._name = newName;
-  }
-
-  set moduleName (newModuleName: string) {
-    this.moduleName = newModuleName;
-  }
-
-  // depreciated, use prepareConfig
-  setConfig (ns: string, dConfig: any = {}): any {
-    this.log.warn(`setConfig is depreciated, use prepareConfig instead`)
-    // return Object.assign(dConfig, this.app.config[ns], this.options)
-  }
-
-  prepareConfig (ns: string = '', dConfig: any = {}): any {
-    if (isFunction(dConfig)) {
-      dConfig = dConfig(this.app)
+  prepareConfig (ns: string = '', defaultConfig: any = {}): any {
+    if (isFunction(defaultConfig)) {
+      defaultConfig = defaultConfig(this.app)
     }
 
     if (ns) {
-      return Object.assign(dConfig, this.app.config[ns], this.options)
+      return Object.assign(defaultConfig, this.app.config[ns], this.options)
     } else {
-      return Object.assign(dConfig, this.options)
+      return Object.assign(defaultConfig, this.options)
     }
   }
 
-  insert (currentModule: any, ns?: string) {
+  insert (currentModule: any, ns = '') {
+    if (this.namespace) {
+      ns += this.namespace
+    }
+
     if (!ns) {
-      ns = this.moduleName
+      ns += this.moduleName
     }
 
     if (this.app[ns]) {
