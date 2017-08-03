@@ -30,13 +30,11 @@ export abstract class Module {
     this.init()
 
     this.originalModuleName = this.moduleName
-    this.moduleName = this.moduleName.replace(/@|\/|\-/g, '_')
-    if (options.namespace) {
-      this.namespace = options.namespace
-    }
+    this.namespace = options.namespace
 
     // Until es7 have a way to initialize property
     if (this.moduleName) {
+      this.moduleName = this.moduleName.replace(/@|\/|\-/g, '_')
       this.config = this.prepareConfig(
         this.moduleName,
         (typeof this.defaultConfig === 'string')
