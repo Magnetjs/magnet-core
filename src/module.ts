@@ -1,6 +1,5 @@
 import isObject = require('lodash/isObject')
 import isFunction = require('lodash/isFunction')
-import snakeCase = require('lodash/snakeCase')
 
 import { LogAbstract } from './log'
 import { App } from './app'
@@ -31,7 +30,7 @@ export abstract class Module {
     this.init()
 
     this.originalModuleName = this.moduleName
-    this.moduleName = snakeCase(this.moduleName).replace('@', '_')
+    this.moduleName = this.moduleName.replace(/@|\/|\-/g, '_')
     if (options.namespace) {
       this.namespace = options.namespace
     }
