@@ -29,7 +29,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "bunyan": "^1.8.12",
-    "fs-extra": "^4.0.1",
+    "fs-extra": "^5.0.0",
     "lodash": "^4.17.4",
     "parent-require": "^1.0.0"
   },
