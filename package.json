@@ -34,7 +34,7 @@
     "parent-require": "^1.0.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.66",
+    "@types/lodash": "^4.14.120",
     "@types/node": "^8.0.1",
     "ava": "^0.21.0",
     "fly": "^2.0.6",
