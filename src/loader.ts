@@ -1,10 +1,10 @@
-import * as prequire from 'parent-require'
-
 export function fromNode (modulePath: string, options?: any) {
   let mod
   try {
     mod = require(modulePath).default
   } catch (err) {
+    const prequire = require('parent-require')
+
     if (err.code === 'MODULE_NOT_FOUND') {
       // TODO: proper way to display error
       // Some error return as MODULE_NOT_FOUND

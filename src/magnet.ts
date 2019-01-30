@@ -1,8 +1,4 @@
-import flow = require('lodash/fp/flow')
-import map = require('lodash/fp/map')
-import reverse = require('lodash/fp/reverse')
-import flatten = require('lodash/fp/flatten')
-import compact = require('lodash/fp/compact')
+import { flow, map, reverse, flatten, compact } from "lodash/fp";
 
 import { App } from './app'
 import { reflect, retrieveReflect } from './utils'
@@ -23,7 +19,7 @@ export default class Magnet {
         flatten,
         compact,
         reverse,
-        map((teardown) => {
+        map((teardown: any) => {
           return teardown()
         })
       )(this.teardowns)

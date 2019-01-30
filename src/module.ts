@@ -1,5 +1,4 @@
-import isObject = require('lodash/isObject')
-import isFunction = require('lodash/isFunction')
+import { isFunction } from "lodash";
 
 import { LogAbstract } from './log'
 import { App } from './app'

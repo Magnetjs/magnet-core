@@ -1,13 +1,8 @@
 import * as fs from 'fs-extra'
 import * as glob from 'glob'
 import * as _promise from 'bluebird'
-import * as differenceWith from 'lodash/fp/differenceWith'
-import * as without from 'lodash/fp/without'
-import * as flow from 'lodash/fp/flow'
-import * as map from 'lodash/fp/map'
-import * as compact from 'lodash/fp/compact'
-import flatten = require('lodash/flatten')
-import intersection = require('lodash/intersection')
+import { differenceWith, without, flow, map, compact } from "lodash/fp";
+import { flatten, intersection } from "lodash";
 // TODO: Only get when from cli
 // import pkg from './package.json'
 
@@ -22,7 +17,7 @@ const getNodeModulePackageJSON = async function (): Promise<any[]> {
 }
 
 const filterOutMagnetModule = flow(
-  map((json) => {
+  map((json: any) => {
     if (!json.keywords || !intersection(json.keywords, ['magnet', 'magnetjs']).length) {
       return
     }
@@ -51,15 +46,12 @@ const formatPath = function (files) {
     name: path.split('config/')[1]
   }))
 }
-
-const copyFiles = flow(
-  differenceWith(
-    (moduleFile, currentFile) => moduleFile.name === currentFile.name
-  ),
-  map((file) => {
-    return fs.copy(file.path, `./src/config/${file.name}`)
+const copyFiles = <any>flow(
+  differenceWith((moduleFile: any, currentFile: any) => moduleFile.name === currentFile.name),
+  map(file => {
+    return fs.copy(file.path, `./src/config/${file.name}`);
   })
-)
+);
 
 export default async function (): Promise<void> {
   try {
