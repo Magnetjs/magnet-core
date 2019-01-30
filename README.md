@@ -50,17 +50,25 @@ export default class Module extends Base {
 ~~~
 
 ### Folders structure
-- client
 - docs
-- universal
 - local_modules
-- server
+- src
+  - builds
   - config
   - controllers
-  - emails
-  - graphql
+  - database
+  - models
   - queues
+  - routers
+    - graphql
+    - tcp
+    - command
+    - ws
   - schedulers
+  - schemas
+  - services
+  - templates
+  - utils
 - static
 - tests
 
@@ -97,18 +105,14 @@ magnet([
 
 es5
 ~~~javascript
-var magnet = require('magnet-core').default,
-var Config = ,
-var Logger = ,
-var Router = ,
-var FileLoader = require('../local_modules/file_loader').default,
+var magnet = require('magnet-core').default;
 
 magnet([
   require('magnet-config').default,
   require('magnet-bunyan').default,
   require('magnet-router').default,
   {
-    module: FileLoader,
+    module: require('../local_modules/file_loader').default,
     options: ''
   }
 ]);
