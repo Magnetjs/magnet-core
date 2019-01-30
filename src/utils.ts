@@ -1,6 +1,4 @@
-import flow = require('lodash/fp/flow')
-import map = require('lodash/fp/map')
-import compact = require('lodash/fp/compact')
+import { flow, map, compact } from "lodash/fp";
 
 export interface PromiseReflect {
   status: string

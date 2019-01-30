@@ -1,5 +1,3 @@
-import * as bunyan from 'bunyan'
-
 export interface Log {
   fatal()
   error()

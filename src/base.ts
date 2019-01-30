@@ -1,5 +1,4 @@
 import { App } from './app'
-import { Module } from './module'
 import { LogAbstract } from './log'
 
 export default class Base {
