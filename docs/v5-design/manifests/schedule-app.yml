@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sample-api
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sample-api
+        release: stable
+        environment: production
+        tier: backend
+    spec:
+      containers:
+        - name: sample-api
+          env:
+            - name: NODE_ENV
+              value: production

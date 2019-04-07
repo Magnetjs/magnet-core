@@ -1,4 +1,4 @@
-const modules = [
+export const modules = [
   require("@magnetjs/acl").default,
   require("@magnetjs/aws").default,
   require("@magnetjs/bull").default,
@@ -16,7 +16,7 @@ const modules = [
   require("@magnetjs/sequelize").default,
   require("@magnetjs/twilio").default,
   require("@magnetjs/umzug").default,
-  require("@magnetjs/grpc").default,
+  require("@magnetjs/grpc/client").default,
 
   // new feature
   "local_modules/*.js",

@@ -1,0 +1,14 @@
+type Blog {
+  title: String
+  author: String
+}
+
+# The "Query" type is the root of all GraphQL queries.
+# (A "Mutation" type will be covered later on.)
+extend type Query {
+  blogs: [Blog]
+}
+
+extend type Mutation {
+  createBlog(title: String!): Blog
+}

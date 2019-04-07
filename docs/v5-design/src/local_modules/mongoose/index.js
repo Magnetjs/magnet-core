@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
 import * as defaultConfig from "./config";
 
-export default async function setup({ config, log, magnetMoule }) {
+export default async function setup({ config, log, magnetModule }) {
   try {
     const { uri, ...preparedConfig } = Object.assign(
       defaultConfig,

@@ -1,4 +1,4 @@
-const modules = [
+export const modules = [
   require("@magnetjs/bull").default,
   require("@magnetjs/config").default,
   require("@magnetjs/folder-loader").default,

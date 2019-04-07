@@ -12,8 +12,8 @@ export const modules = [
   require("@magnetjs/redis").default,
   require("@magnetjs/sequelize").default,
   require("@magnetjs/twilio").default,
-  require("@magnetjs/umzug").default,
-  require("i-like-to-move-it-move-it").default
+  require("@magnetjs/grpc/client").default,
+  require("@magnetjs/grpc/server").default
 ];
 
 export default modules;
