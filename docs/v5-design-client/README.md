@@ -1,9 +1,12 @@
 ### Problem
 
-- Per module inject, what variables name should we use? Default: magnetModule
+- Modules
+  - Per module inject, what variables name should we use? Default: magnetModule
+  - Config path
+  - Module name, which related to config path name
 - How should we handle container?
-- Module based folder structure, is inputs folder make sense? Default: inputs, options: actions
-- Should manifests join with manifests?
+- Module based folder structure, is inputs folder name make sense? Default: inputs, options: actions
+- Should manifests join with recipes?
 
   - Options 1
 
@@ -35,3 +38,9 @@
             grpc-app.yml
             grpc-svc.yml
   ```
+
+- npm to javascript name format?
+  - mongoose => mongoose
+  - next.js => next_js
+  - @google/map => \_google_map
+- aws-sdk structure as a module
