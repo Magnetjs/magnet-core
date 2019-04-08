@@ -8,7 +8,7 @@ export default async function setup({ config, log, magnetModule }) {
       magnetModule.config
     );
 
-    const mongoose = await mongoose.connect(
+    const mongooseConnection = await mongoose.connect(
       uri,
       preparedConfig
     );
@@ -16,16 +16,17 @@ export default async function setup({ config, log, magnetModule }) {
     return {
       registers: [
         {
-          name: magnetModule.name || "mongoose",
-          value: mongoose
+          key: magnetModule.name || "mongoose",
+          value: mongooseConnection
         }
       ],
 
       async teardown() {
-        mongoose.shutdown();
+        mongooseConnection.close();
       }
     };
   } catch (err) {
     log.error(err);
+    throw err;
   }
 }

@@ -1,0 +1,9 @@
+{
+  "name": "sample-app-v5",
+  "version": "5.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "nodemon recipes/index.js --watch src --watch recipes --watch local_modules --exec 'node -r ts-node/register' | pino",
+    "start": "node dist/recipes/index.js"
+  }
+}
