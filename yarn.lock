@@ -324,10 +324,10 @@
   dependencies:
     arrify "^1.0.1"
 
-"@types/lodash@^4.14.66":
-  version "4.14.120"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.120.tgz#cf265d06f6c7a710db087ed07523ab8c1a24047b"
-  integrity sha512-jQ21kQ120mo+IrDs1nFNVm/AsdFxIx2+vZ347DbogHJPd/JzKNMOqU6HCYin1W6v8l5R9XSO2/e9cxmn7HAnVw==
+"@types/lodash@^4.14.127":
+  version "4.14.127"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.127.tgz#66a094af48e66af04e96d3d2e0f29396fe8139c8"
+  integrity sha512-n4kNk5CA+Tivr2Mhd80CZPZWfdslLXpdLFF5SmOljOtkV9Powkdfg0XP9rRa626lzZs++1cnMoyApkjHVSBH1w==
 
 "@types/node@^10.12.19":
   version "10.12.19"
