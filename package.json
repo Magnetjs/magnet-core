@@ -27,7 +27,7 @@
     "watch-test": "ava --watch | tap-spec"
   },
   "dependencies": {
-    "bluebird": "^3.4.7",
+    "bluebird": "^3.7.1",
     "bunyan": "^1.8.12",
     "fs-extra": "^7.0.1",
     "lodash": "^4.17.4",
