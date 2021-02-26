@@ -30,7 +30,7 @@
     "bluebird": "^3.4.7",
     "bunyan": "^1.8.12",
     "fs-extra": "^7.0.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "parent-require": "^1.0.0"
   },
   "devDependencies": {
