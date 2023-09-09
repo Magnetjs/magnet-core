@@ -1,0 +1,10 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:moment:20170905':
+    - bunyan > moment:
+        patched: '2023-09-09T02:38:20.334Z'
+        id: 'npm:moment:20170905'
+        path: bunyan > moment
